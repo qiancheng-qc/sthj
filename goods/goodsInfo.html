@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="../jq/jquery-1.12.4.min.js"></script>
+    <script src="../js/goodsInfo.js"></script>
+		<link rel="stylesheet" href="../css/mui.css" />
+		<link rel="stylesheet" href="../css/base.css" />
+		<link rel="stylesheet" href="../css/header.css" />
+		<link rel="stylesheet" href="./goodsInfo.css" />
+	</head>
+	<body>
+		<div class="header">
+			<div class="arrow">&lt;</div>
+			货物信息
+		</div>
+		<div class="content">
+			<div class="goods-count">
+				<div class="title">发货数量</div>
+				<div class="items">
+					<div class="item">
+						<input type="text" placeholder="0.00" />
+						<div class="danwei">吨</div>
+						<div class="drop"><div>&lt;</div></div>
+					</div>
+          <div class="item">
+            <div class="vertical"></div>
+						<input type="text" placeholder="0.00" />
+						<div class="danwei">吨</div>
+					</div>
+          <div class="item">
+            <div class="vertical"></div>
+						<input type="text" placeholder="0.00" />
+						<div class="danwei">吨</div>
+					</div>
+				</div>
+			</div>
+			<div class="freight">
+				<div class="freights">
+					<div class="freights-left">运费金额</div>
+					<div class="freights-right"><span>0.00</span>&nbsp;元</div>
+				</div>
+				<div style="background-color: rgba(0, 0, 0, 0.1); width: 100%; height: 1px"></div>
+				<div class="freights">
+					<div class="freights-left">运费总金额</div>
+					<div class="freights-right"><span>0.00</span>&nbsp;元</div>
+				</div>
+			</div>
+			<div class="business-type">
+				<div class="title">业务类型</div>
+				<div class="tags">
+					<div class="tag">干线普货运输</div>
+					<div class="tag">城市配送</div>
+					<div class="tag">农村配送</div>
+					<div class="tag">集装箱运输</div>
+					<div class="tag">其他</div>
+					<div class="tag" style="visibility: hidden"></div>
+				</div>
+			</div>
+			<div class="goods-type">
+				<div class="title">货物类型</div>
+				<div class="tags">
+					<div class="tag">普货</div>
+					<div class="tag">煤炭及制品</div>
+					<div class="tag">金属矿石</div>
+					<div class="tag">建筑材料</div>
+					<div class="tag">水泥</div>
+					<div class="tag">钢铁</div>
+					<div class="tag">化肥及农药</div>
+					<div class="tag">盐</div>
+					<div class="tag">木材</div>
+					<div class="tag">快递</div>
+					<div class="tag">鲜活农产品</div>
+					<div class="tag">粮食</div>
+					<div class="tag">轻工业及制品</div>
+					<div class="tag">冷藏冷冻货物</div>
+					<div class="tag">商品汽车</div>
+					<div class="tag">非金属矿石</div>
+					<div class="tag">机械设备电器</div>
+					<div class="tag">其他</div>
+					<div class="tag" style="width: 130px">石油天然气及制品</div>
+					<div class="tag" style="visibility: hidden"></div>
+				</div>
+			</div>
+			<div class="mui-input-row">
+				<label>货物名称：</label>
+				<input type="text" class="mui-input-clear" placeholder="输入名称" />
+			</div>
+			<div class="confirm">
+				<button type="button" class="mui-btn mui-btn-primary">提交</button>
+			</div>
+		</div>
+	</body>
+</html>

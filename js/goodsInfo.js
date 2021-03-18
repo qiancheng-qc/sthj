@@ -1,0 +1,7 @@
+var a = document.getElementsByClassName('tag')
+console.log(typeof a)
+// var a = document.querySelectorAll('.tag')
+// console.log(a)
+// console.log($('.tag').attr('class'))
+// var b = document.getElementsByClassName('freight')
+// console.log(b)
