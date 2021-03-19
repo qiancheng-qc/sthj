@@ -57,11 +57,21 @@ body {
 }
 .freights {
 	display: flex;
-	justify-content: space-between;
 	padding: 16px;
 }
-.freights span {
-	color: #e80000;
+.freights .freights-left {
+  width: 100px;
+}
+.freights input {
+  flex: 1;
+  border: none;
+  height: 20px;
+  margin: 0;
+  text-align: right;
+  color: #e80000;
+}
+.freights input::-webkit-input-placeholder {
+  color: #e80000;
 }
 .goods-count,
 .business-type,
