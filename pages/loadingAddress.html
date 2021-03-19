@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卸货地址</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #f6f6f6;
+        }
+
+        .header {
+            height: 44px;
+            background-color: #fff;
+            font-size: 17px;
+            font-weight: bold;
+            color: #262626;
+            line-height: 44px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header .arrow {
+            position: absolute;
+            width: 10%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            font-family: '宋体';
+            font-weight: bold;
+        }
+
+        .contentList {
+            height: 97px;
+            margin-top: 8px;
+            background-color: #FFFFFF;
+        }
+
+        .item {
+            margin-left: 16px;
+            height: 48px;
+            display: flex;
+            flex-direction: row;
+            flex: 1;
+            align-items: center;
+        }
+
+        .itemText {
+            font-size: 16px;
+            color: #3e3e3e;
+        }
+
+        .itemText1 {
+            margin-left: 30px;
+            font-size: 14px;
+            color: #5c5c5c;
+        }
+
+        .itemText2 {
+            margin-left: 45px;
+            font-size: 14px;
+            color: #5c5c5c;
+        }
+
+        .itemIcon {
+            margin-left: 110px;
+            color: #5c5c5c;
+        }
+
+        .itemIcon1 {
+            margin-left: 125px;
+            color: #5c5c5c;
+        }
+
+        .contentRoad {
+            height: 48px;
+            margin-top: 8px;
+            background-color: #FFFFFF;
+            display: flex;
+            align-items: center;
+        }
+
+        .road {
+            font-size: 16px;
+            color: #0A7BCD;
+            margin-left: 16px;
+
+        }
+
+        .laddress {
+            color: #0F7ECE;
+        }
+
+        .caddress {
+            font-weight: normal;
+            color: #222222;
+        }
+
+        .line {
+            width: 100%;
+            height: 1px;
+            color: #333333;
+        }
+
+        .popup-content {
+            display: none;
+            margin-top: 130px;
+            background-color: #FFFFFF
+        }
+
+        .popup-top {
+            height: 50px;
+            line-height: 50px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: row;
+            flex: 1;
+            justify-items: center;
+            justify-content: space-around;
+
+        }
+
+        .popup-middle {
+            margin-top: 20px;
+            height: 50px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: row;
+            flex: 1;
+        }
+
+        .image {
+
+            margin: 10px 16px;
+            width: 15px;
+            height: 19px;
+        }
+
+        .middle-content {
+            color: #5C5C5C;
+        }
+
+        .middle-text {
+            font-size: 14px;
+        }
+
+        .middle-item {
+            font-size: 16px;
+        }
+
+        .middle-couplet {
+            color: #0A7BCD;
+            margin-top: 10px;
+            margin-left: 150px;
+        }
+
+        .font {
+            margin: 0px;
+            width: 28px;
+            height: 28px;
+        }
+
+        .botton {
+            width: 345px;
+            height: 45px;
+            font-size: 16px;
+            color: #0A7BCD;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="arrow">&lt;</div>
+            普通发货
+        </div>
+        <div class="contentList">
+            <region-picker>
+                <div class="item">
+                    <div class="itemText">所在省市区：</div>
+                    <div class="itemText1">点击选择省市区</div>
+                    <div class="itemIcon"> > </div>
+                </div>
+            </region-picker>
+            <div class="item">
+                <div class="itemText">详细地址：</div>
+                <div class="itemText2">输入详细地址</div>
+                <div class="itemIcon1"> > </div>
+            </div>
+        </div>
+        <div class="contentRoad">
+            <div class="road">历史/常用路线</div>
+        </div>
+        <div class="popup-content">
+            <div class="popup-top">
+                <div class="laddress">历史地址</div>
+                <div class="caddress">常用路线</div>
+            </div>
+            <div>
+                <div class="popup-middle">
+                    <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                    <div class="middle-content">
+                        <div class="middle-text">江苏省南京市高淳区</div>
+                        <div class="middle-item">五星电器城</div>
+                    </div>
+                    <div class="middle-couplet">
+                        <image class="font" src="../ifont/seleted.png" mode=""></image>
+                    </div>
+                </div>
+                <div class="popup-middle">
+                    <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                    <div class="middle-content">
+                        <div class="middle-text">江苏省南京市高淳区</div>
+                        <div class="middle-item">五星电器城</div>
+                    </div>
+                </div>
+                <div class="popup-middle">
+                    <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                    <div class="middle-content">
+                        <div class="middle-text">江苏省南京市高淳区</div>
+                        <div class="middle-item">五星电器城</div>
+                    </div>
+                </div>
+            </div>
+            <div class="botton">确定</div>
+        </div>
+    </div>
+</body>
+<script>
+
+</script>
+
+</html>
