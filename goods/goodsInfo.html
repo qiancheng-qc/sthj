@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<script src="../jq/jquery-1.12.4.min.js"></script>
-    <script src="../js/goodsInfo.js"></script>
+		<script src="../js/goodsInfo.js"></script>
 		<link rel="stylesheet" href="../css/mui.css" />
 		<link rel="stylesheet" href="../css/base.css" />
 		<link rel="stylesheet" href="../css/header.css" />
@@ -21,18 +21,18 @@
 			<div class="goods-count">
 				<div class="title">发货数量</div>
 				<div class="items">
-					<div class="item">
+					<div class="item" id="item1">
 						<input type="text" placeholder="0.00" />
 						<div class="danwei">吨</div>
 						<div class="drop"><div>&lt;</div></div>
 					</div>
-          <div class="item">
-            <div class="vertical"></div>
+					<div class="item" id="item2" style="display: none">
+						<div class="vertical"></div>
 						<input type="text" placeholder="0.00" />
-						<div class="danwei">吨</div>
+						<div class="danwei">方</div>
 					</div>
-          <div class="item">
-            <div class="vertical"></div>
+					<div class="item" id="item3" style="display: none">
+						<div class="vertical"></div>
 						<input type="text" placeholder="0.00" />
 						<div class="danwei">吨</div>
 					</div>
@@ -52,37 +52,37 @@
 			<div class="business-type">
 				<div class="title">业务类型</div>
 				<div class="tags">
-					<div class="tag">干线普货运输</div>
-					<div class="tag">城市配送</div>
-					<div class="tag">农村配送</div>
-					<div class="tag">集装箱运输</div>
-					<div class="tag">其他</div>
-					<div class="tag" style="visibility: hidden"></div>
+					<div class="tag not-pick">干线普货运输</div>
+					<div class="tag not-pick">城市配送</div>
+					<div class="tag not-pick">农村配送</div>
+					<div class="tag not-pick">集装箱运输</div>
+					<div class="tag not-pick">其他</div>
+					<div style="visibility: hidden; flex: 0 0 32%"></div>
 				</div>
 			</div>
 			<div class="goods-type">
 				<div class="title">货物类型</div>
 				<div class="tags">
-					<div class="tag">普货</div>
-					<div class="tag">煤炭及制品</div>
-					<div class="tag">金属矿石</div>
-					<div class="tag">建筑材料</div>
-					<div class="tag">水泥</div>
-					<div class="tag">钢铁</div>
-					<div class="tag">化肥及农药</div>
-					<div class="tag">盐</div>
-					<div class="tag">木材</div>
-					<div class="tag">快递</div>
-					<div class="tag">鲜活农产品</div>
-					<div class="tag">粮食</div>
-					<div class="tag">轻工业及制品</div>
-					<div class="tag">冷藏冷冻货物</div>
-					<div class="tag">商品汽车</div>
-					<div class="tag">非金属矿石</div>
-					<div class="tag">机械设备电器</div>
-					<div class="tag">其他</div>
-					<div class="tag" style="width: 130px">石油天然气及制品</div>
-					<div class="tag" style="visibility: hidden"></div>
+					<div class="tag not-pick">普货</div>
+					<div class="tag not-pick">煤炭及制品</div>
+					<div class="tag not-pick">金属矿石</div>
+					<div class="tag not-pick">建筑材料</div>
+					<div class="tag not-pick">水泥</div>
+					<div class="tag not-pick">钢铁</div>
+					<div class="tag not-pick">化肥及农药</div>
+					<div class="tag not-pick">盐</div>
+					<div class="tag not-pick">木材</div>
+					<div class="tag not-pick">快递</div>
+					<div class="tag not-pick">鲜活农产品</div>
+					<div class="tag not-pick">粮食</div>
+					<div class="tag not-pick">轻工业及制品</div>
+					<div class="tag not-pick">冷藏冷冻货物</div>
+					<div class="tag not-pick">商品汽车</div>
+					<div class="tag not-pick">非金属矿石</div>
+					<div class="tag not-pick">机械设备电器</div>
+					<div class="tag not-pick">其他</div>
+					<div class="tag not-pick" style="width: 130px; flex: 0 0 40%">石油天然气及制品</div>
+					<div style="visibility: hidden; flex: 0 0 32%"></div>
 				</div>
 			</div>
 			<div class="mui-input-row">
@@ -91,6 +91,22 @@
 			</div>
 			<div class="confirm">
 				<button type="button" class="mui-btn mui-btn-primary">提交</button>
+			</div>
+		</div>
+		<div class="picker">
+			<div class="picker-bottom">
+				<div class="picker-title">货物信息</div>
+				<div class="options">
+					<div class="option"><div class="option-inner chosen">吨</div></div>
+					<div class="option"><div class="option-inner">方</div></div>
+					<div class="option"><div class="option-inner">车</div></div>
+					<div class="option"><div class="option-inner">件</div></div>
+				</div>
+				<div class="btns">
+					<div class="btn" id="cancel-btn">取消</div>
+					<div class="line"></div>
+					<div class="btn" id="confirm-btn" style="color: #0a7bcd">确定</div>
+				</div>
 			</div>
 		</div>
 	</body>
