@@ -3,7 +3,6 @@ $(function () {
 	$businessTags.on('click', function () {
 		$(this).removeClass('not-pick').addClass('pick').siblings().removeClass('pick').addClass('not-pick')
 	})
-
 	var $goodsTags = $('.goods-type .tag')
 	$goodsTags.on('click', function () {
 		$(this).removeClass('not-pick').addClass('pick').siblings().removeClass('pick').addClass('not-pick')
@@ -23,10 +22,10 @@ $(function () {
 	})
 
 	var $options = $('.option')
-	var text
 	var $item1 = $('#item1')
 	var $item2 = $('#item2')
 	var $item3 = $('#item3')
+	var text = $item1.children('.danwei')[0].innerText
 	$options.on('click', function () {
 		$(this).children('.option-inner').addClass('chosen')
 		$(this).siblings().children('.option-inner').removeClass('chosen')

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="../mui-master/dist/js/mui.min.js"></script>
+		<script src="../mui-master/plugin/picker/js/mui.picker.js"></script>
+		<script src="../mui-master/plugin/picker/js/mui.poppicker.js"></script>
+		<link rel="stylesheet" href="../css/mui.css" />
+		<link rel="stylesheet" href="../mui-master/plugin/picker/css/mui.picker.css" />
+		<link rel="stylesheet" href="../mui-master/plugin/picker/css/mui.poppicker.css" />
+		<style>
+			.mui-picker {
+				background-color: #fff;
+			}
+			.mui-pciker-rule-ft {
+				border: none;
+			}
+		</style>
+	</head>
+	<body>
+		<button onclick="show()">show</button>
+		<button class="mui-btn mui-btn-blue mui-poppicker-btn-ok"></button>
+
+		<script>
+			var picker = new mui.PopPicker({
+				layer: 3
+			})
+			picker.setData([
+				{
+					value: '110000',
+					text: '北京市',
+					children: [
+						{
+							value: '110101',
+							text: '东城区',
+							children: [
+								{
+									value: '110101',
+									text: '东城区'
+								}
+							]
+						}
+					]
+				},
+				{
+					value: '120000',
+					text: '天津市',
+					children: [
+						{
+							value: '120101',
+							text: '和平区'
+						},
+						{
+							value: '120102',
+							text: '河东区'
+						},
+						{
+							value: '120104',
+							text: '南开区'
+						}
+					]
+				}
+			])
+			function show() {
+				picker.show(function (selectItems) {
+					console.log(selectItems[0].text) //智子
+					console.log(selectItems[0].value) //zz
+				})
+			}
+		</script>
+	</body>
+</html>
