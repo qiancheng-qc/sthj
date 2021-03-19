@@ -1,5 +1,6 @@
 body {
 	background-color: #f6f6f6;
+	position: relative;
 }
 .content {
 	width: 100%;
@@ -21,8 +22,8 @@ body {
 	width: 1px;
 	height: 21px;
 	background: #bfbfbf;
-  margin-top: 12px;
-  margin-left: 6px;
+	margin-top: 12px;
+	margin-left: 6px;
 }
 .goods-count .items .item input {
 	border: none;
@@ -80,20 +81,27 @@ body {
 }
 .business-type .tags .tag,
 .goods-type .tags .tag {
-	width: 110px;
+	flex: 0 0 32%;
 	height: 30px;
-	background: #ffffff;
-	border: 1px solid #bfbfbf;
 	border-radius: 3px;
 	font-size: 14px;
 	font-family: PingFang SC;
 	font-weight: 500;
-	color: #5c5c5c;
 	line-height: 17px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 16px;
+}
+.not-pick {
+	background: #ffffff;
+	color: #5c5c5c;
+	border: 1px solid #bfbfbf;
+}
+.pick {
+	background: #0a7bcd;
+	border: 1px solid #0a7bcd;
+	color: #fff;
 }
 .mui-input-row {
 	background-color: #fff !important;
@@ -127,4 +135,74 @@ body {
 	font-weight: 500;
 	color: #ffffff;
 	line-height: 17px;
+}
+.picker {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+.picker .picker-bottom {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 280px;
+	background-color: #fff;
+}
+.picker .picker-bottom .picker-title {
+	font-size: 16px;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #080808;
+	line-height: 48px;
+	text-align: center;
+	border-bottom: 1px solid #f1f1f1;
+}
+.picker .picker-bottom .options {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 160px;
+	border-bottom: 1px solid #f1f1f1;
+}
+.picker .picker-bottom .options .option {
+	flex: 1;
+	font-size: 14px;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #5c5c5c;
+	padding: 5px 15px;
+}
+.picker .picker-bottom .options .option .option-inner {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	line-height: 30px;
+	border-radius: 5px;
+}
+.picker .picker-bottom .options .option .chosen {
+	background-color: #ececec;
+}
+.picker .picker-bottom .btns {
+	display: flex;
+}
+.picker .picker-bottom .btns .btn {
+	flex: 1;
+	line-height: 44px;
+	text-align: center;
+	font-size: 18px;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #5c5c5c;
+}
+.picker .picker-bottom .btns .line {
+	margin-top: 9px;
+	width: 1px;
+	height: 26px;
+	background-color: #f1f1f1;
 }
