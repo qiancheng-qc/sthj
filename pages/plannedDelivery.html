@@ -38,6 +38,15 @@
             left: 0;
             font-family: '宋体';
             font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .arrow img {
+            width: 9.5px;
+            height: 17.5px;
+            line-height: 17.5px;
+            margin-left: 16px;
         }
 
         .topContent {
@@ -96,24 +105,27 @@
 
         .itemText1 {
             font-size: 14px;
-            color: #5c5c5c;
+            color: #9E9E9E;
         }
 
         .itemIcon {
-            margin-left: 150px;
+            margin-left: 115px;
             color: #5c5c5c;
         }
-
+        .itemIcon .image {
+            width: 7.5px;
+            height: 13px;
+        }
         .itemText2 {
             font-size: 12px;
-            color: #5c5c5c;
-            margin-left: 170px;
+            color: #9E9E9E;
+            margin-left: 135px;
         }
 
         .itemText3 {
             font-size: 12px;
-            color: #5c5c5c;
-            margin-left: 195px;
+            color: #9E9E9E;
+            margin-left: 159px;
         }
 
         .itemList {
@@ -136,12 +148,18 @@
             margin-left: 16px;
             color: #5c5c5c;
         }
-
+        .itemIcon1 .image {
+            width: 7.5px;
+            height: 13px;
+        }
         .itemIcon2 {
             margin-left: 16px;
             color: #5c5c5c;
         }
-
+        .itemIcon2 .image {
+            width: 7.5px;
+            height: 13px;
+        }
         .contentBotton {
             margin-left: 16px;
             height: 48px;
@@ -185,7 +203,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="arrow">&lt;</div>
+            <div class="arrow"> <img src="../fonts/返回@2x.png" alt=""> </div>
             计划发货
         </div>
         <div class="topContent">
@@ -198,24 +216,32 @@
                 <div class="itemText">装货地址</div>
                 <image class="image" src="../images/ordinary/地址.png" mode=""></image>
                 <div class="itemText1">点击选择</div>
-                <div class="itemIcon"> > </div>
+                <div class="itemIcon">
+                    <image class="image" src="../fonts/箭头@2x.png"/>
+                </div>
             </div>
             <div class="item">
                 <div class="itemText">卸货地址</div>
                 <image class="image" src="../images/ordinary/地址.png" mode=""></image>
                 <div class="itemText1">点击选择</div>
-                <div class="itemIcon"> > </div>
+                <div class="itemIcon">
+                    <image class="image" src="../fonts/箭头@2x.png"/>
+                </div>
             </div>
         </div>
         <div class="itemList">
             <div class="itemcontent">货物信息</div>
             <div class="itemText2">运费、货物类型</div>
-            <div class="itemIcon1"> > </div>
+            <div class="itemIcon1">
+                <image class="image" src="../fonts/箭头@2x.png"/>
+            </div>
         </div>
         <div class="itemList">
             <div class="itemcontent">承运司机</div>
             <div class="itemText3">可选择司机</div>
-            <div class="itemIcon2"> > </div>
+            <div class="itemIcon2">
+                <image class="image" src="../fonts/箭头@2x.png"/>
+            </div>
         </div>
         <div class="contentBotton">
             <div class="bottonItem">单笔总运费：</div>

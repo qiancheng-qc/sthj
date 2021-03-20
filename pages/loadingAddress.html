@@ -39,48 +39,72 @@
             left: 0;
             font-family: '宋体';
             font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .arrow img {
+            width: 9.5px;
+            height: 17.5px;
+            line-height: 17.5px;
+            margin-left: 16px;
         }
 
         .contentList {
             height: 97px;
             margin-top: 8px;
             background-color: #FFFFFF;
+            
         }
 
         .item {
             margin-left: 16px;
             height: 48px;
             display: flex;
-            flex-direction: row;
-            flex: 1;
             align-items: center;
+            padding: 0 20px 0 0;
         }
 
         .itemText {
             font-size: 16px;
             color: #3e3e3e;
+            
         }
 
         .itemText1 {
+            flex:1;
             margin-left: 30px;
             font-size: 14px;
-            color: #5c5c5c;
+            color: #9e9e9e;
+            padding: 0 123px 0 0;
         }
 
         .itemText2 {
-            margin-left: 45px;
+            flex:1;
             font-size: 14px;
-            color: #5c5c5c;
+            margin-left: 45px;
+            color: #9e9e9e;
+            padding: 0 123px 0 0;
         }
 
         .itemIcon {
-            margin-left: 110px;
             color: #5c5c5c;
         }
 
+        .itemIcon img {
+            width: 7.5px;
+            height: 13px;
+            color: #5C5C5C;
+        }
+
         .itemIcon1 {
-            margin-left: 125px;
             color: #5c5c5c;
+        }
+
+        .itemIcon1 img {
+            width: 7.5px;
+            height: 13px;
+            color: #5C5C5C;
         }
 
         .contentRoad {
@@ -154,7 +178,6 @@
         }
 
         .image {
-
             margin: 10px 16px;
             width: 15px;
             height: 19px;
@@ -205,25 +228,29 @@
         .pick {
             color: #0a7bcd;
         }
+        #right {
+            display: none;
+        }
+
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <div class="arrow">&lt;</div>
+            <div class="arrow"><img src="../fonts/返回@2x.png" alt=""></div>
             装货地址
         </div>
         <div class="contentList">
             <div class="item">
-                <div class="itemText">所在省市区：</div>
+                <div class="itemText">所在省市区</div>
                 <div class="itemText1">点击选择省市区</div>
-                <div class="itemIcon"> > </div>
+                <div class="itemIcon"> <img src="../fonts/箭头@2x.png" alt=""> </div>
             </div>
             <div class="item">
-                <div class="itemText">详细地址：</div>
+                <div class="itemText">详细地址</div>
                 <div class="itemText2">输入详细地址</div>
-                <div class="itemIcon1"> > </div>
+                <div class="itemIcon1"> <img src="../fonts/箭头@2x.png" alt=""> </div>
             </div>
         </div>
         <div class="contentRoad" onclick="isHidden()">
@@ -232,32 +259,58 @@
         <div class="popup-content" id="popup">
             <div class="popup-bottom">
                 <div class="popup-top">
-                    <div class="tag laddress">历史地址</div>
-                    <div class="tag caddress">常用路线</div>
+                    <div class="tag laddress" onclick="isShow(left)">历史地址</div>
+                    <div class="tag caddress" onclick="isShow(right)">常用路线</div>
                 </div>
-                <div>
-                    <div class="popup-middle">
+                <div id="left" class="popup-left">
+                    <div class="tag popup-middle">
                         <image class="image" src="../images/ordinary/地址.png" mode=""></image>
                         <div class="middle-content">
                             <div class="middle-text">江苏省南京市高淳区</div>
                             <div class="middle-item">五星电器城</div>
                         </div>
                         <div class="middle-couplet">
-                            <image class="font" src="../ifont/seleted.png" mode=""></image>
+                            <image class="font" src="../fonts/seleted.png" mode=""></image>
                         </div>
                     </div>
-                    <div class="popup-middle">
+                    <div class="tag popup-middle">
                         <image class="image" src="../images/ordinary/地址.png" mode=""></image>
                         <div class="middle-content">
                             <div class="middle-text">江苏省南京市高淳区</div>
                             <div class="middle-item">五星电器城</div>
                         </div>
                     </div>
-                    <div class="popup-middle">
+                    <div class="tag popup-middle">
                         <image class="image" src="../images/ordinary/地址.png" mode=""></image>
                         <div class="middle-content">
                             <div class="middle-text">江苏省南京市高淳区</div>
                             <div class="middle-item">五星电器城</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="right" class="popup-right">
+                    <div class="tag popup-middle">
+                        <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                        <div class="middle-content">
+                            <div class="middle-text">江苏省南京市高淳区2</div>
+                            <div class="middle-item">四星电器城</div>
+                        </div>
+                        <div class="middle-couplet">
+                            <image class="font" src="../fonts/seleted.png" mode=""></image>
+                        </div>
+                    </div>
+                    <div class="tag popup-middle">
+                        <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                        <div class="middle-content">
+                            <div class="middle-text">江苏省南京市高淳区2</div>
+                            <div class="middle-item">四星电器城</div>
+                        </div>
+                    </div>
+                    <div class="tag popup-middle">
+                        <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                        <div class="middle-content">
+                            <div class="middle-text">江苏省南京市高淳区2</div>
+                            <div class="middle-item">四星电器城</div>
                         </div>
                     </div>
                 </div>
@@ -268,8 +321,20 @@
 </body>
 <script>
     function isHidden(popup) {
-        var show = document.getElementById("popup");
-        show.style.display = (show.style.display == "block") ? "none" : "block";
+        var road = document.getElementById("popup");
+        road.style.display = (road.style.display == "block") ? "none" : "block";
+    }
+
+    function isShow(left) {
+        var laddress = document.getElementById("left");
+        laddress.style.display = (laddress.style.display == "block") ? "none" : "";
+    }
+
+    function isShow(right) {
+        var caddress = document.getElementById("right");
+        caddress.style.display = (caddress.style.display == "block") ? "none" : "block";
+        var laddress = document.getElementById("left");
+        laddress.style.display = (laddress.style.display == "none") ? "block" : "none";
     }
 
     $(function () {
@@ -278,6 +343,7 @@
             $(this).removeClass('not-pick').addClass('pick').siblings().removeClass('pick').addClass('not-pick')
         })
     })
+
 </script>
 
 </html>

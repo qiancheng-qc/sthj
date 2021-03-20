@@ -39,6 +39,15 @@
             left: 0;
             font-family: '宋体';
             font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .arrow img {
+            width: 9.5px;
+            height: 17.5px;
+            line-height: 17.5px;
+            margin-left: 16px;
         }
 
         .contentList {
@@ -64,23 +73,33 @@
         .itemText1 {
             margin-left: 30px;
             font-size: 14px;
-            color: #5c5c5c;
+            color: #9E9E9E;
         }
 
         .itemText2 {
             margin-left: 45px;
             font-size: 14px;
-            color: #5c5c5c;
+            color: #9E9E9E;
         }
 
         .itemIcon {
+            margin-left: 95px;
+            color: #5c5c5c;
+        }
+
+        .itemIcon .image {
+            width: 7.5px;
+            height: 13px;
+        }
+
+        .itemIcon1 {
             margin-left: 110px;
             color: #5c5c5c;
         }
 
-        .itemIcon1 {
-            margin-left: 125px;
-            color: #5c5c5c;
+        .itemIcon1 .image {
+            width: 7.5px;
+            height: 13px;
         }
 
         .contentRoad {
@@ -205,52 +224,45 @@
         .pick {
             color: #0a7bcd;
         }
+        #right {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <div class="arrow">&lt;</div>
+            <div class="arrow"> <img src="../fonts/返回@2x.png" alt=""> </div>
             卸货地址
         </div>
         <div class="contentList">
             <div class="item">
                 <div class="itemText">所在省市区：</div>
                 <div class="itemText1">点击选择省市区</div>
-                <div class="itemIcon"> > </div>
+                <div class="itemIcon">
+                    <image class="image" src="../fonts/箭头@2x.png" />
+                </div>
             </div>
             <div class="item">
                 <div class="itemText">详细地址：</div>
                 <div class="itemText2">输入详细地址</div>
-                <div class="itemIcon1"> > </div>
+                <div class="itemIcon1">
+                    <image class="image" src="../fonts/箭头@2x.png" />
+                </div>
             </div>
         </div>
         <div class="contentRoad" onclick="isHidden()">
             <div class="road">历史/常用路线</div>
         </div>
 
-        <div class="" id="">
-            <div class="">
-                <div class="">
-                    <div class="">所在省市区</div>
-                </div>
-                <div>
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                </div>
-                <div class="botton" onclick="isHidden()">确定</div>
-            </div>
-        </div>
-
-        <!-- <div class="popup-content" id="popup">
+        <div class="popup-content" id="popup">
             <div class="popup-bottom">
                 <div class="popup-top">
-                    <div class="tag laddress">历史地址</div>
-                    <div class="tag caddress">常用路线</div>
+                    <div class="tag laddress" onclick="isShow(left)">历史地址</div>
+                    <div class="tag caddress" onclick="isShow(right)">常用路线</div>
                 </div>
-                <div>
+                <div id="left">
                     <div class="popup-middle">
                         <image class="image" src="../images/ordinary/地址.png" mode=""></image>
                         <div class="middle-content">
@@ -258,7 +270,7 @@
                             <div class="middle-item">五星电器城</div>
                         </div>
                         <div class="middle-couplet">
-                            <image class="font" src="../ifont/seleted.png" mode=""></image>
+                            <image class="font" src="../fonts/seleted.png" mode=""></image>
                         </div>
                     </div>
                     <div class="popup-middle">
@@ -276,15 +288,53 @@
                         </div>
                     </div>
                 </div>
+                <div id="right">
+                    <div class="popup-middle">
+                        <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                        <div class="middle-content">
+                            <div class="middle-text">江苏省南京市高淳区2</div>
+                            <div class="middle-item">四星电器城</div>
+                        </div>
+                        <div class="middle-couplet">
+                            <image class="font" src="../fonts/seleted.png" mode=""></image>
+                        </div>
+                    </div>
+                    <div class="popup-middle">
+                        <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                        <div class="middle-content">
+                            <div class="middle-text">江苏省南京市高淳区2</div>
+                            <div class="middle-item">四星电器城</div>
+                        </div>
+                    </div>
+                    <div class="popup-middle">
+                        <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                        <div class="middle-content">
+                            <div class="middle-text">江苏省南京市高淳区2</div>
+                            <div class="middle-item">四星电器城</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="botton" onclick="isHidden()">确定</div>
             </div>
-        </div> -->
+        </div>
     </div>
 </body>
 <script>
     function isHidden(popup) {
         var show = document.getElementById("popup");
         show.style.display = (show.style.display == "block") ? "none" : "block";
+    }
+
+    function isShow(left) {
+        var laddress = document.getElementById("left");
+        laddress.style.display = (laddress.style.display == "block") ? "none" : "block";
+    }
+
+    function isShow(right) {
+        var caddress = document.getElementById("right");
+        caddress.style.display = (caddress.style.display == "block") ? "none" : "block";
+        var laddress = document.getElementById("left");
+        laddress.style.display = (laddress.style.display == "none") ? "block" : "none";
     }
 
     $(function () {
