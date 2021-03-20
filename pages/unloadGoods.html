@@ -60,8 +60,6 @@
             margin-left: 16px;
             height: 48px;
             display: flex;
-            flex-direction: row;
-            flex: 1;
             align-items: center;
         }
 
@@ -71,19 +69,20 @@
         }
 
         .itemText1 {
+            flex: 1;
             margin-left: 30px;
             font-size: 14px;
             color: #9E9E9E;
         }
 
         .itemText2 {
+            flex:1;
             margin-left: 45px;
             font-size: 14px;
             color: #9E9E9E;
         }
 
         .itemIcon {
-            margin-left: 95px;
             color: #5c5c5c;
         }
 
@@ -93,7 +92,6 @@
         }
 
         .itemIcon1 {
-            margin-left: 110px;
             color: #5c5c5c;
         }
 
@@ -147,7 +145,7 @@
             left: 0;
             bottom: 0;
             width: 100%;
-            height: 380px;
+            height: 340px;
             background-color: #fff;
         }
 
@@ -164,23 +162,23 @@
         }
 
         .popup-middle {
-            margin-top: 20px;
-            height: 50px;
+            height: 72px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: row;
-            flex: 1;
+            align-items: center;
         }
 
         .image {
-
             margin: 10px 16px;
             width: 15px;
             height: 19px;
         }
 
         .middle-content {
+            flex:1;
             color: #5C5C5C;
+            
         }
 
         .middle-text {
@@ -193,28 +191,22 @@
 
         .middle-couplet {
             color: #0A7BCD;
-            margin-top: 10px;
-            margin-left: 150px;
+            margin-right: 20px;
         }
 
         .font {
-            margin: 0px;
             width: 28px;
             height: 28px;
         }
 
         .botton {
-            width: 345px;
-            height: 45px;
+            height: 60px;
             font-size: 16px;
             color: #0A7BCD;
-            border-radius: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: auto;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin: auto;  
         }
 
         .not-pick {
@@ -238,14 +230,14 @@
         </div>
         <div class="contentList">
             <div class="item">
-                <div class="itemText">所在省市区：</div>
+                <div class="itemText">所在省市区</div>
                 <div class="itemText1">点击选择省市区</div>
                 <div class="itemIcon">
                     <image class="image" src="../fonts/箭头@2x.png" />
                 </div>
             </div>
             <div class="item">
-                <div class="itemText">详细地址：</div>
+                <div class="itemText">详细地址</div>
                 <div class="itemText2">输入详细地址</div>
                 <div class="itemIcon1">
                     <image class="image" src="../fonts/箭头@2x.png" />
@@ -279,6 +271,9 @@
                             <div class="middle-text">江苏省南京市高淳区</div>
                             <div class="middle-item">五星电器城</div>
                         </div>
+                        <!-- <div class="middle-couplet">
+                            <image class="font" src="../fonts/seleted.png" mode=""></image>
+                        </div> -->
                     </div>
                     <div class="popup-middle">
                         <image class="image" src="../images/ordinary/地址.png" mode=""></image>
@@ -286,6 +281,9 @@
                             <div class="middle-text">江苏省南京市高淳区</div>
                             <div class="middle-item">五星电器城</div>
                         </div>
+                        <!-- <div class="middle-couplet">
+                            <image class="font" src="../fonts/seleted.png" mode=""></image>
+                        </div> -->
                     </div>
                 </div>
                 <div id="right">
