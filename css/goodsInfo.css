@@ -45,15 +45,9 @@ body {
 	line-height: 44px;
 }
 .goods-count .items .item .drop {
-	font-size: 14px;
-	font-family: '宋体';
-	color: #5c5c5c;
-	line-height: 44px;
-	font-weight: bold;
-	margin-left: 14px;
-}
-.goods-count .items .item .drop div {
-	transform: rotate(-90deg);
+  line-height: 44px;
+  margin-left: 6px;
+  color: #5c5c5c;
 }
 .freights {
 	display: flex;
