@@ -5,12 +5,18 @@
 	padding: 0;
 }
 
-html,
-body {
+html {
 	height: 100%;
 	width: 100%;
 }
-
+body {
+	width: 100%;
+	height: calc(100% - 44px);
+	padding-top: 44px;
+}
+/* .content {
+  margin-top: 44px;
+} */
 /* em 和 i 斜体的文字不倾斜 */
 
 em,

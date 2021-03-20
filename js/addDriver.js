@@ -31,8 +31,6 @@ $(function () {
 		arr.forEach(x => {
 			var infoDiv = createDriverInfo(x.id, x.name, x.phone, x.status, x.statusName)
 			$drivers.append(infoDiv)
-			$drivers.append(infoDiv)
-			$drivers.append(infoDiv)
 		})
 	}
 	renderDrivers(axiosInfo)

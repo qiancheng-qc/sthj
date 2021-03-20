@@ -9,7 +9,10 @@
 	line-height: 44px;
   text-align: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 .header .arrow {
   position: absolute;
@@ -17,6 +20,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  font-family: '宋体';
-  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
