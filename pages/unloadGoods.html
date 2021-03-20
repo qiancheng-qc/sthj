@@ -224,6 +224,9 @@
         .pick {
             color: #0a7bcd;
         }
+        #right {
+            display: none;
+        }
     </style>
 </head>
 
@@ -256,10 +259,10 @@
         <div class="popup-content" id="popup">
             <div class="popup-bottom">
                 <div class="popup-top">
-                    <div class="tag laddress">历史地址</div>
-                    <div class="tag caddress">常用路线</div>
+                    <div class="tag laddress" onclick="isShow(left)">历史地址</div>
+                    <div class="tag caddress" onclick="isShow(right)">常用路线</div>
                 </div>
-                <div>
+                <div id="left">
                     <div class="popup-middle">
                         <image class="image" src="../images/ordinary/地址.png" mode=""></image>
                         <div class="middle-content">
@@ -285,6 +288,32 @@
                         </div>
                     </div>
                 </div>
+                <div id="right">
+                    <div class="popup-middle">
+                        <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                        <div class="middle-content">
+                            <div class="middle-text">江苏省南京市高淳区2</div>
+                            <div class="middle-item">四星电器城</div>
+                        </div>
+                        <div class="middle-couplet">
+                            <image class="font" src="../fonts/seleted.png" mode=""></image>
+                        </div>
+                    </div>
+                    <div class="popup-middle">
+                        <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                        <div class="middle-content">
+                            <div class="middle-text">江苏省南京市高淳区2</div>
+                            <div class="middle-item">四星电器城</div>
+                        </div>
+                    </div>
+                    <div class="popup-middle">
+                        <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                        <div class="middle-content">
+                            <div class="middle-text">江苏省南京市高淳区2</div>
+                            <div class="middle-item">四星电器城</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="botton" onclick="isHidden()">确定</div>
             </div>
         </div>
@@ -294,6 +323,18 @@
     function isHidden(popup) {
         var show = document.getElementById("popup");
         show.style.display = (show.style.display == "block") ? "none" : "block";
+    }
+
+    function isShow(left) {
+        var laddress = document.getElementById("left");
+        laddress.style.display = (laddress.style.display == "block") ? "none" : "block";
+    }
+
+    function isShow(right) {
+        var caddress = document.getElementById("right");
+        caddress.style.display = (caddress.style.display == "block") ? "none" : "block";
+        var laddress = document.getElementById("left");
+        laddress.style.display = (laddress.style.display == "none") ? "block" : "none";
     }
 
     $(function () {
