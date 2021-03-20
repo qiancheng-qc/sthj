@@ -42,13 +42,18 @@ $(function () {
 	})
 	function searchDriverBy(val) {
 		var res = []
-		axiosInfo.forEach(x => {
-			if (x.name === val || x.phone === +val) {
-				res.push(x)
-			}
-		})
-		console.log(res)
-    $('.driver-info').remove()
-    renderDrivers(res)
+		if (val) {
+			axiosInfo.forEach(x => {
+				if (x.name === val || x.phone === +val) {
+					res.push(x)
+				}
+			})
+			console.log(res)
+			$('.driver-info').remove()
+			renderDrivers(res)
+		} else {
+			$('.driver-info').remove()
+			renderDrivers(axiosInfo)
+		}
 	}
 })
