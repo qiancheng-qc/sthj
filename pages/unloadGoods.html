@@ -5,7 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript" src="../jq/jquery-1.12.4.min.js"></script>
+    <script src="../jq/jquery-1.12.4.min.js"></script>
+    <script src="../mui-master/dist/js/mui.min.js"></script>
+    <script src="../mui-master/plugin/picker/js/mui.picker.js"></script>
+    <script src="../mui-master/plugin/picker/js/mui.poppicker.js"></script>
+    <link rel="stylesheet" href="../css/mui.css" />
+    <link rel="stylesheet" href="../mui-master/plugin/picker/css/mui.picker.css" />
+    <link rel="stylesheet" href="../mui-master/plugin/picker/css/mui.poppicker.css" />
     <title>卸货地址</title>
     <style>
         * {
@@ -76,7 +82,7 @@
         }
 
         .itemText2 {
-            flex:1;
+            flex: 1;
             margin-left: 45px;
             font-size: 14px;
             color: #9E9E9E;
@@ -176,9 +182,9 @@
         }
 
         .middle-content {
-            flex:1;
+            flex: 1;
             color: #5C5C5C;
-            
+
         }
 
         .middle-text {
@@ -206,7 +212,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: auto;  
+            margin: auto;
         }
 
         .not-pick {
@@ -216,8 +222,81 @@
         .pick {
             color: #0a7bcd;
         }
+
         #right {
             display: none;
+        }
+
+
+        .mui-picker {
+            background-color: #fff;
+        }
+
+        .mui-poppicker-header {
+            background-color: #fff;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: center;
+        }
+
+        .mui-poppicker-btn-cancel {
+            display: none;
+        }
+
+        .mui-poppicker-btn-ok {
+            background-color: #fff;
+            border: none;
+            /* margin-right: 160px; */
+            font-size: 18px !important;
+            color: #0a7bcd;
+        }
+
+        .mui-pciker-rule-ft {
+            border: none;
+        }
+
+        .mui-poppicker-body {
+            position: absolute;
+            bottom: 48px;
+            left: 0;
+        }
+
+        li.visible {
+            font-size: 12px;
+        }
+
+        li.highlight {
+            font-size: 16px;
+            color: #fff !important;
+        }
+
+        .picker_title {
+            position: absolute;
+            bottom: 230px;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            text-align: center;
+            font-size: 16px;
+            font-family: PingFang SC;
+            font-weight: 500;
+            color: #5c5c5c;
+            line-height: 45px;
+        }
+
+        .blue {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #73bff5;
+            width: 80%;
+            height: 25px;
+            border-radius: 3px;
         }
     </style>
 </head>
@@ -229,7 +308,7 @@
             卸货地址
         </div>
         <div class="contentList">
-            <div class="item">
+            <div class="item" onclick="show()">
                 <div class="itemText">所在省市区</div>
                 <div class="itemText1">点击选择省市区</div>
                 <div class="itemIcon">
@@ -341,6 +420,66 @@
             $(this).removeClass('not-pick').addClass('pick').siblings().removeClass('pick').addClass('not-pick')
         })
     })
+
+    // 省市区
+    var picker = new mui.PopPicker({
+        layer: 3
+    })
+    picker.setData([
+        {
+            value: '110000',
+            text: '北京市',
+            children: [
+                {
+                    value: '110101',
+                    text: '东城区',
+                    children: [
+                        {
+                            value: '110101',
+                            text: '东城区'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            value: '120000',
+            text: '天津市',
+            children: [
+                {
+                    value: '120101',
+                    text: '和平区',
+                    children: [{
+                        value: '120101',
+                        text: '11122'
+                    }]
+                },
+                {
+                    value: '120102',
+                    text: '河东区'
+                },
+                {
+                    value: '120104',
+                    text: '南开区'
+                }
+            ]
+        }
+    ])
+    picker.show(function (selectItems) {
+        console.log(selectItems[0].text) //智子
+        console.log(selectItems[0].value) //zz
+    })
+    function show() {
+        picker.show(function (selectItems) {
+            console.log(selectItems[0].text) //智子
+            console.log(selectItems[0].value) //zz
+        })
+    }
+
+    var $muiPoppicker = $('.mui-poppicker')
+    $muiPoppicker.append('<div class="picker_title">所在省市区</div>')
+    var $muiBg = $('.mui-pciker-rule-bg')
+    $muiBg.append('<div class="blue"></div>')
 </script>
 
 </html>
