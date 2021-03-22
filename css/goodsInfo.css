@@ -79,7 +79,7 @@ body {
 .business-type .tags,
 .goods-type .tags {
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	flex-direction: row;
 	flex-wrap: wrap;
 }
@@ -96,6 +96,11 @@ body {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 16px;
+  margin-right: 2%;
+}
+.business-type .tags .tag:nth-child(3n),
+.goods-type .tags .tag:nth-child(3n) {
+  margin-right: 0;
 }
 .not-pick {
 	background: #ffffff;
