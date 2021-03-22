@@ -14,7 +14,9 @@
 	</head>
 	<body>
 		<div class="header">
-			<div class="arrow"><a href=""><img src="../../images/返回.png" alt=""></a></div>
+			<div class="arrow">
+				<a href=""><img src="../../images/返回.png" alt="" /></a>
+			</div>
 			货物信息
 		</div>
 		<div class="content">
@@ -41,25 +43,24 @@
 			<div class="freight">
 				<div class="freights">
 					<div class="freights-left">运费金额</div>
-					<input type="text" placeholder="0.00" />
+					<input type="text" placeholder="0.00" id="sum" />
 					<div class="freights-right">元</div>
 				</div>
 				<div style="background-color: rgba(0, 0, 0, 0.1); width: 100%; height: 1px"></div>
 				<div class="freights">
 					<div class="freights-left">运费总金额</div>
-					<input type="text" placeholder="0.00" />
+					<input type="text" placeholder="0.00" id="total_sum" />
 					<div class="freights-right">元</div>
 				</div>
 			</div>
 			<div class="business-type">
 				<div class="title">业务类型</div>
 				<div class="tags">
-					<div class="tag not-pick">干线普货运输</div>
-					<div class="tag not-pick">城市配送</div>
-					<div class="tag not-pick">农村配送</div>
-					<div class="tag not-pick">集装箱运输</div>
-					<div class="tag not-pick">其他</div>
-					<div style="visibility: hidden; flex: 0 0 32%"></div>
+					<div data-id="1" class="tag not-pick">干线普货运输</div>
+					<div data-id="2" class="tag not-pick">城市配送</div>
+					<div data-id="3" class="tag not-pick">农村配送</div>
+					<div data-id="4" class="tag not-pick">集装箱运输</div>
+					<div data-id="5" class="tag not-pick">其他</div>
 				</div>
 			</div>
 			<div class="goods-type">
@@ -83,18 +84,18 @@
 					<div class="tag not-pick">非金属矿石</div>
 					<div class="tag not-pick">机械设备电器</div>
 					<div class="tag not-pick">其他</div>
-					<div class="tag not-pick" style="width: 130px; flex: 0 0 40%">石油天然气及制品</div>
-					<div style="visibility: hidden; flex: 0 0 32%"></div>
+					<div class="tag not-pick" style="flex: 0 0 40%">石油天然气及制品</div>
 				</div>
 			</div>
 			<div class="mui-input-row">
 				<label>货物名称：</label>
-				<input type="text" class="mui-input-clear" placeholder="输入名称" />
+				<input type="text" class="mui-input-clear" placeholder="输入名称" id="goods_name" />
 			</div>
 			<div class="confirm">
-				<button type="button" class="mui-btn mui-btn-primary">提交</button>
+				<button type="button" class="mui-btn mui-btn-primary" id="submit_btn">提交</button>
 			</div>
 		</div>
+    <!-- 弹出框 -->
 		<div class="picker">
 			<div class="picker-bottom">
 				<div class="picker-title">货物信息</div>
