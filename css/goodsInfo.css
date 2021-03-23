@@ -2,6 +2,9 @@ body {
 	background-color: #f6f6f6;
 	position: relative;
 }
+input {
+  color: #222;
+}
 .content {
 	width: 100%;
 }
