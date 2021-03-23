@@ -223,6 +223,11 @@
             color: #0a7bcd;
         }
 
+        .lr {
+            height:217px;
+            overflow: auto;
+        }
+
         #right {
             display: none;
         }
@@ -298,6 +303,24 @@
             height: 25px;
             border-radius: 3px;
         }
+
+        .empty {
+            margin-top: 32px;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-items: center;
+        }
+        .empty img {
+            width: 60.5px;
+            height: 54px;
+            line-height: 54px;
+        }
+        .empty .empty-content {
+            font-size: 16px;
+            margin-top: 18px;
+            color: #5C5C5C;
+        }
     </style>
 </head>
 
@@ -327,6 +350,7 @@
             <div class="road">历史/常用路线</div>
         </div>
 
+        <!-- 历史/常用地址弹框 -->
         <div class="popup-content" id="popup">
             <div class="popup-bottom">
                 <div class="popup-top" id="popupTop">
@@ -341,9 +365,6 @@
                                 <div class="middle-text">江苏省南京市高淳区</div>
                                 <div class="middle-item">五星电器城</div>
                             </div>
-                            <!-- <div class="middle-couplet">
-                                <image class="font" src="../fonts/seleted.png" mode=""></image>
-                            </div> -->
                         </div>
                         <div class="popup-middle">
                             <image class="image" src="../images/ordinary/地址.png" mode=""></image>
@@ -351,9 +372,6 @@
                                 <div class="middle-text">江苏省南京市高淳区</div>
                                 <div class="middle-item">五星电器城</div>
                             </div>
-                            <!-- <div class="middle-couplet">
-                            <image class="font" src="../fonts/seleted.png" mode=""></image>
-                        </div> -->
                         </div>
                         <div class="popup-middle">
                             <image class="image" src="../images/ordinary/地址.png" mode=""></image>
@@ -361,9 +379,20 @@
                                 <div class="middle-text">江苏省南京市高淳区</div>
                                 <div class="middle-item">五星电器城</div>
                             </div>
-                            <!-- <div class="middle-couplet">
-                            <image class="font" src="../fonts/seleted.png" mode=""></image>
-                        </div> -->
+                        </div>
+                        <div class="popup-middle">
+                            <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                            <div class="middle-content">
+                                <div class="middle-text">江苏省南京市高淳区</div>
+                                <div class="middle-item">五星电器城</div>
+                            </div>
+                        </div>
+                        <div class="popup-middle">
+                            <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                            <div class="middle-content">
+                                <div class="middle-text">江苏省南京市高淳区</div>
+                                <div class="middle-item">五星电器城</div>
+                            </div>
                         </div>
                     </div>
                     <div id="right">
@@ -373,9 +402,13 @@
                                 <div class="middle-text">江苏省南京市高淳区2</div>
                                 <div class="middle-item">四星电器城</div>
                             </div>
-                            <!-- <div class="middle-couplet">
-                                <image class="font" src="../fonts/seleted.png" mode=""></image>
-                            </div> -->
+                        </div>
+                        <div class="popup-middle">
+                            <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+                            <div class="middle-content">
+                                <div class="middle-text">江苏省南京市高淳区2</div>
+                                <div class="middle-item">四星电器城</div>
+                            </div>
                         </div>
                         <div class="popup-middle">
                             <image class="image" src="../images/ordinary/地址.png" mode=""></image>
@@ -393,7 +426,13 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="botton" onclick="isHidden()">确定</div>
+
+                <!-- <div class="empty">
+                    <img src="../fonts/mipmap-xxhdpi/空内容 拷贝.png" alt="">
+                    <div class="empty-content">暂无内容</div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -463,17 +502,19 @@
             ]
         }
     ])
-
     function show() {
         picker.show(function (selectItems) {
             console.log(selectItems[0].text) //智子
             console.log(selectItems[0].value) //zz
         })
     }
+
+
     var $muiPoppicker = $('.mui-poppicker')
     $muiPoppicker.append('<div class="picker_title">所在省市区</div>')
     var $muiBg = $('.mui-pciker-rule-bg')
     $muiBg.append('<div class="blue"></div>')
+
 </script>
 
 </html>
