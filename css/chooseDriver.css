@@ -1,7 +1,9 @@
 body {
 	position: relative;
 	padding-bottom: 45px;
-	/* overflow: hidden; */
+}
+input {
+  color: #222;
 }
 .header .header-right {
 	position: absolute;

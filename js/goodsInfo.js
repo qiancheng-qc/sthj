@@ -1,11 +1,21 @@
 $(function () {
+  // 提交的内容
+	var data = {
+		goodsNum: 0,
+		sum: 0,
+		totalSum: 0,
+		businessType: '',
+		goodsType: '',
+		goodsName: ''
+	}
+
 	var $businessTags = $('.business-type .tag') // 业务类型标签
 	var $goodsTags = $('.goods-type .tag') // 货物类型标签
 	// 标签点击变蓝 其他还原
 	$businessTags.on('click', function () {
 		$(this).removeClass('not-pick').addClass('pick').siblings().removeClass('pick').addClass('not-pick')
-    console.log($(this)[0].innerText)
-    console.log($(this).attr('data-id'))
+		console.log($(this)[0].innerText)
+		console.log($(this).data('id'))
 	})
 	$goodsTags.on('click', function () {
 		$(this).removeClass('not-pick').addClass('pick').siblings().removeClass('pick').addClass('not-pick')
@@ -17,7 +27,7 @@ $(function () {
 	$drop.on('click', function () {
 		$picker.show() // 点击下拉弹出框出现
 
-    // 选择框上滑特效
+		// 选择框上滑特效
 		var bottomVal = -280
 		$pickerBottom.css('bottom', bottomVal + 'px')
 		setInterval(function () {
@@ -54,6 +64,9 @@ $(function () {
 	})
 	// 确定按钮点击 改变发货数量样式
 	$confirmBtn.on('click', function () {
+    $item1.find('input').val('')
+    $item2.find('input').val('')
+    $item3.find('input').val('')
 		$item1.children('.danwei')[0].innerText = text
 		if (text === '吨') {
 			$item2.hide()
@@ -66,8 +79,12 @@ $(function () {
 			$item2.show()
 			$item3.show()
 			$item2.children('.danwei')[0].innerText = '方'
-			$item3.children('.danwei')[0].innerText = '吨'
 		}
 		$picker.hide()
+	})
+
+	var $submitBtn = $('#submit_btn')
+	$submitBtn.on('click', function () {
+		console.log(data)
 	})
 })
