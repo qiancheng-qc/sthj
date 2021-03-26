@@ -1,12 +1,34 @@
 $(function () {
 	// 提交的内容
 	var data = {
-		goodsNum: 0,
+		unit: '吨',
+		amount: 0,
+		volume: 0,
+		ton: 0,
 		category: '0100',
 		btc: '1002996',
 		price: 0,
 		name: ''
 	}
+	// 税率
+	var rate = 0
+
+	// 获取用户信息 （税率）
+	function queryInfo() {
+		$.ajax({
+			url: 'http://t.company.sthjnet.com/company/user/info',
+			type: 'POST',
+			headers: {
+				token:
+					'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
+			},
+			data,
+			success: function (res) {
+				rate = res.result.company.rate / 100
+			}
+		})
+	}
+	queryInfo()
 
 	var $businessTags = $('.business-type .tag') // 业务类型标签
 	var $goodsTags = $('.goods-type .tag') // 货物类型标签
@@ -53,6 +75,7 @@ $(function () {
 		$(this).children('.option-inner').addClass('chosen')
 		$(this).siblings().children('.option-inner').removeClass('chosen')
 		text = $(this).children('.option-inner')[0].innerText
+		data.unit = text
 	})
 
 	var $cancelBtn = $('#cancel-btn') // 选择器取消按钮
@@ -66,24 +89,97 @@ $(function () {
 		$item1.find('input').val('')
 		$item2.find('input').val('')
 		$item3.find('input').val('')
+		data.amount = data.volume = data.ton = 0
 		$item1.children('.danwei')[0].innerText = text
+		subBtnColor()
 		if (text === '吨') {
 			$item2.hide()
 			$item3.hide()
 		} else if (text === '方') {
-			$item2.show()
-			$item3.hide()
-			$item2.children('.danwei')[0].innerText = '吨'
+			$item2.hide()
+			$item3.show()
 		} else {
 			$item2.show()
 			$item3.show()
-			$item2.children('.danwei')[0].innerText = '方'
 		}
 		$picker.hide()
 	})
 
+	// 发货数量1
+	$item1.find('input').on('input', function () {
+		console.log($(this).val())
+		data.amount = $(this).val()
+		if (data.unit === '吨') {
+			data.ton = $(this).val()
+		} else if (data.unit === '方') {
+			data.volume = $(this).val()
+		}
+		subBtnColor()
+	})
+
+	// 发货数量2
+	$item2.find('input').on('input', function () {
+		console.log($(this).val())
+		data.volume = $(this).val()
+		subBtnColor()
+	})
+
+	// 发货数量3
+	$item3.find('input').on('input', function () {
+		console.log($(this).val())
+		data.ton = $(this).val()
+		subBtnColor()
+	})
+
+	// 运费金额改动 运费总金额随之变动（乘以税率）
+	var $price = $('#price') // 运费金额
+	var $totalSum = $('.total_sum') // 运费总金额
+	console.log($totalSum[0].innerText)
+	$price.on('input', function () {
+		data.price = $(this).val()
+		subBtnColor()
+		if ($(this).val()) {
+			$totalSum[0].innerText = ($(this).val() * (1 + rate)).toFixed(2)
+		} else {
+			$totalSum[0].innerText = '0.00'
+		}
+	})
+
+	// 货物名称
+	var $goodsName = $('#goods_name')
+	$goodsName.on('input', function () {
+		data.name = $(this).val()
+		subBtnColor()
+	})
+
+  // 提交按钮颜色
+	function subBtnColor() {
+		if ($item3.css('display') === 'none') {
+			if (data.name && data.price && data.amount && data.ton) {
+				$submitBtn.removeClass('gray').addClass('blue')
+			} else {
+				$submitBtn.removeClass('blue').addClass('gray')
+			}
+		} else {
+			if (data.name && data.price && data.amount && data.ton && data.volume) {
+				$submitBtn.removeClass('gray').addClass('blue')
+			} else {
+				$submitBtn.removeClass('blue').addClass('gray')
+			}
+		}
+	}
+
+	// 提交按钮
 	var $submitBtn = $('#submit_btn')
+
+	// 传递数据
 	$submitBtn.on('click', function () {
+    // 如果按钮灰色 直接return
+		if ($submitBtn.css('background-color') === 'rgb(158, 158, 158)') {
+			return
+		}
+
 		console.log(data)
+		sessionStorage.setItem('goodsInfo', JSON.stringify(data))
 	})
 })

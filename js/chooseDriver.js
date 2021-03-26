@@ -9,15 +9,14 @@ $(function () {
 		curPage: 1,
 		pageSize: 10,
 		driverName: '',
-		driverPhone: '',
-		truckCode: ''
+		driverPhone: ''
 	}
 	var driversData = [] // 后台数据
 	var submitData = [] // 提交的内容 数组
 
 	// 创建司机信息 class="driver-info"
 	function createDriverInfo(id, name, phone, carNum, statusClass, statusName) {
-		return `<div class="driver-info">
+		return `<div class="driver-info" data-id="${id}">
               <div class="radio">
                 <input class="driver-input" type="checkbox" name="driver" id="input${id}" />
                 <label class="mui-icon driver-label" for="input${id}"></label>
@@ -31,28 +30,36 @@ $(function () {
               </div>
             </div>`
 	}
+
 	// 将创建的司机信息渲染到页面
 	function renderDrivers(arr) {
-		$drivers.empty()
 		arr.forEach(x => {
 			var infoDiv = createDriverInfo(x.id, x.name, x.phone, x.carNum, x.statusClass, x.statusName)
 			$drivers.append(infoDiv)
 		})
 	}
+
 	// 搜索
-	// function searchDriverBy(val) {
-	// 	var res = []
-	// 	if (val) {
-	// 		driversData.forEach(x => {
-	// 			if (x.name === val || x.phone === +val) {
-	// 				res.push(x)
-	// 			}
-	// 		})
-	// 		renderDrivers(res)
-	// 	} else {
-	// 		renderDrivers(driversData)
-	// 	}
-	// }
+	function searchDriverBy(val) {
+		if (!val) {
+			data.driverName = data.driverPhone = ''
+		} else if (val.length === 11) {
+			data.driverPhone = val
+		} else {
+			data.driverName = val
+		}
+		queryData()
+	}
+
+	// 确定按钮颜色
+	function confirmBtnColor() {
+		if (submitData.length) {
+			$confirmBtn.removeClass('gray').addClass('blue')
+		} else {
+			$confirmBtn.removeClass('blue').addClass('gray')
+		}
+	}
+
 	// 获取数据
 	function queryData() {
 		$.ajax({
@@ -79,11 +86,13 @@ $(function () {
 				})
 				console.log(driversData)
 				renderDrivers(driversData)
+				driversData = []
 			}
 		})
 	}
 	queryData()
 
+	// 页面滚动加载
 	var timer
 	window.onscroll = function () {
 		throttle()
@@ -122,11 +131,14 @@ $(function () {
 	// renderDrivers(driversData)
 
 	$searchBtn.on('click', function () {
+		data.curPage = 1
 		searchDriverBy($searchInput.val())
 		$searchInput.val('')
+		$drivers.empty()
 		submitData = []
 		count = 0
 		$count[0].innerText = count
+    confirmBtnColor()
 	})
 
 	// 选中司机
@@ -137,17 +149,31 @@ $(function () {
 			$(this).find('.driver-input')[0].checked = !$(this).find('.driver-input')[0].checked
 			if ($(this).find('.driver-input')[0].checked) {
 				count++
+				console.log($(this).data('id'))
+				submitData.push($(this).data('id'))
 			} else {
 				count--
+				console.log($(this).data('id'))
+				var i = $.inArray($(this).data('id'), submitData)
+				submitData.splice(i, 1)
+				console.log($.inArray($(this).data('id'), submitData))
 			}
 		} else {
 			$(this).find('.driver-input')[0].disabled = true
 		}
 
 		$count[0].innerText = count
+
+    confirmBtnColor()
 	})
 
 	$confirmBtn.on('click', function () {
+    // 如果按钮灰色 直接return
+		if ($confirmBtn.css('background-color') === 'rgb(158, 158, 158)') {
+			return
+		}
+
 		console.log(submitData)
+		sessionStorage.setItem('driver', JSON.stringify(submitData))
 	})
 })

@@ -1,149 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD:pages/goods/goodsInfo.html
-
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>货物信息</title>
-	<script src="../../jq/jquery-1.12.4.min.js"></script>
-	<script src="../../js/goodsInfo.js"></script>
-	<link rel="stylesheet" href="../../mui-master/dist/css/mui.css">
-	<link rel="stylesheet" href="../../css/base.css" />
-	<link rel="stylesheet" href="../../css/header.css" />
-	<link rel="stylesheet" href="../../css/goodsInfo.css" />
-</head>
-
-<body>
-	<div class="header">
-		<div class="arrow">
-			<a href=""><img src="../../images/返回.png" alt="" /></a>
-=======
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>货物信息</title>
-		<script src="../jq/jquery-1.12.4.min.js"></script>
-		<script src="../js/goodsInfo.js"></script>
-    <link rel="stylesheet" href="../mui-master/dist/css/mui.css">
-		<link rel="stylesheet" href="../css/base.css" />
-		<link rel="stylesheet" href="../css/header.css" />
-		<link rel="stylesheet" href="../css/goodsInfo.css" />
+		<script src="../../jq/jquery-1.12.4.min.js"></script>
+		<script src="../../js/goodsInfo.js"></script>
+		<link rel="stylesheet" href="../../mui-master/dist/css/mui.css" />
+		<link rel="stylesheet" href="../../css/base.css" />
+		<link rel="stylesheet" href="../../css/header.css" />
+		<link rel="stylesheet" href="../../css/goodsInfo.css" />
 	</head>
+
 	<body>
 		<div class="header">
 			<div class="arrow">
-				<a href=""><img src="../images/返回.png" alt="" /></a>
+				<a href=""><img src="../../images/返回.png" alt="" /></a>
 			</div>
 			货物信息
->>>>>>> fff97099348b4479b3dc3689d2132f378f64fd54:pages/goodsInfo.html
 		</div>
-		货物信息
-	</div>
-	<div class="content">
-		<div class="goods-count">
-			<div class="title">发货数量</div>
-			<div class="items">
-				<div class="item" id="item1">
-					<input type="text" placeholder="0.00" />
-					<div class="danwei">吨</div>
-					<div class="drop"><span class="mui-icon mui-icon-arrowdown"></span></div>
+		<div class="content">
+			<div class="goods-count">
+				<div class="title">发货数量</div>
+				<div class="items">
+					<div class="item" id="item1">
+						<input type="text" placeholder="0.00" />
+						<div class="danwei">吨</div>
+						<div class="drop"><span class="mui-icon mui-icon-arrowdown"></span></div>
+					</div>
+					<div class="item" id="item2" style="display: none">
+						<div class="vertical"></div>
+						<input type="text" placeholder="0.00" />
+						<div class="danwei">方</div>
+					</div>
+					<div class="item" id="item3" style="display: none">
+						<div class="vertical"></div>
+						<input type="text" placeholder="0.00" />
+						<div class="danwei">吨</div>
+					</div>
 				</div>
-				<div class="item" id="item2" style="display: none">
-					<div class="vertical"></div>
-					<input type="text" placeholder="0.00" />
-					<div class="danwei">方</div>
+			</div>
+			<div class="freight">
+				<div class="freights">
+					<div class="freights-left">运费金额</div>
+					<input type="text" placeholder="0.00" id="price" />
+					<div class="freights-right">元</div>
 				</div>
-				<div class="item" id="item3" style="display: none">
-					<div class="vertical"></div>
-					<input type="text" placeholder="0.00" />
-					<div class="danwei">吨</div>
+				<div style="background-color: rgba(0, 0, 0, 0.1); width: 100%; height: 1px"></div>
+				<div class="freights">
+					<div class="freights-left">运费总金额</div>
+					<div class="total_sum">0.00</div>
+					<div class="freights-right">元</div>
+				</div>
+			</div>
+			<div class="business-type">
+				<div class="title">业务类型</div>
+				<div class="tags">
+					<div data-id="1002996" class="tag pick">干线普货运输</div>
+					<div data-id="1003997" class="tag not-pick">城市配送</div>
+					<div data-id="1003998" class="tag not-pick">农村配送</div>
+					<div data-id="1002998" class="tag not-pick">集装箱运输</div>
+					<div data-id="1003999" class="tag not-pick">其他</div>
+				</div>
+			</div>
+			<div class="goods-type">
+				<div class="title">货物类型</div>
+				<div class="tags">
+					<div data-id="0100" class="tag pick">煤炭及制品</div>
+					<div data-id="0200" class="tag not-pick">石油天然气及制品</div>
+					<div data-id="0300" class="tag not-pick">金属矿石</div>
+					<div data-id="0400" class="tag not-pick">钢铁</div>
+					<div data-id="0500" class="tag not-pick">矿建材料</div>
+					<div data-id="0600" class="tag not-pick">水泥</div>
+					<div data-id="0700" class="tag not-pick">木材</div>
+					<div data-id="0800" class="tag not-pick">非金属矿石</div>
+					<div data-id="0900" class="tag not-pick">化肥及农药</div>
+					<div data-id="1000" class="tag not-pick">盐</div>
+					<div data-id="1100" class="tag not-pick">粮食</div>
+					<div data-id="1200" class="tag not-pick">机械设备电器</div>
+					<div data-id="1300" class="tag not-pick">轻工原料及制品</div>
+					<div data-id="1400" class="tag not-pick">有色金属</div>
+					<div data-id="1500" class="tag not-pick">轻工药物产品</div>
+					<div data-id="1601" class="tag not-pick">鲜活农产品</div>
+					<div data-id="1602" class="tag not-pick">冷藏冷冻货物</div>
+					<div data-id="1701" class="tag not-pick">商品汽车</div>
+					<div data-id="1702" class="tag not-pick">快递</div>
+					<div data-id="1700" class="tag not-pick">其他</div>
+				</div>
+			</div>
+			<div class="mui-input-row">
+				<label>货物名称：</label>
+				<input type="text" class="mui-input-clear" placeholder="输入名称" id="goods_name" />
+			</div>
+			<div class="confirm">
+				<button type="button" class="mui-btn mui-btn-primary gray" id="submit_btn">提交</button>
+			</div>
+		</div>
+		<!-- 弹出框 -->
+		<div class="picker">
+			<div class="picker-bottom">
+				<div class="picker-title">货物信息</div>
+				<div class="options">
+					<div class="option">
+						<div class="option-inner chosen">吨</div>
+					</div>
+					<div class="option">
+						<div class="option-inner">方</div>
+					</div>
+					<div class="option">
+						<div class="option-inner">车</div>
+					</div>
+					<div class="option">
+						<div class="option-inner">件</div>
+					</div>
+				</div>
+				<div class="btns">
+					<div class="btn" id="cancel-btn">取消</div>
+					<div class="line"></div>
+					<div class="btn" id="confirm-btn" style="color: #0a7bcd">确定</div>
 				</div>
 			</div>
 		</div>
-		<div class="freight">
-			<div class="freights">
-				<div class="freights-left">运费金额</div>
-				<input type="text" placeholder="0.00" id="sum" />
-				<div class="freights-right">元</div>
-			</div>
-			<div style="background-color: rgba(0, 0, 0, 0.1); width: 100%; height: 1px"></div>
-			<div class="freights">
-				<div class="freights-left">运费总金额</div>
-				<div class="total_sum">0.00</div>
-				<div class="freights-right">元</div>
-			</div>
-		</div>
-		<div class="business-type">
-			<div class="title">业务类型</div>
-			<div class="tags">
-				<div data-id="1002996" class="tag pick">干线普货运输</div>
-				<div data-id="1003997" class="tag not-pick">城市配送</div>
-				<div data-id="1003998" class="tag not-pick">农村配送</div>
-				<div data-id="1002998" class="tag not-pick">集装箱运输</div>
-				<div data-id="1003999" class="tag not-pick">其他</div>
-			</div>
-		</div>
-		<div class="goods-type">
-			<div class="title">货物类型</div>
-			<div class="tags">
-				<div data-id="0100" class="tag pick">煤炭及制品</div>
-				<div data-id="0200" class="tag not-pick">石油天然气及制品</div>
-				<div data-id="0300" class="tag not-pick">金属矿石</div>
-				<div data-id="0400" class="tag not-pick">钢铁</div>
-				<div data-id="0500" class="tag not-pick">矿建材料</div>
-				<div data-id="0600" class="tag not-pick">水泥</div>
-				<div data-id="0700" class="tag not-pick">木材</div>
-				<div data-id="0800" class="tag not-pick">非金属矿石</div>
-				<div data-id="0900" class="tag not-pick">化肥及农药</div>
-				<div data-id="1000" class="tag not-pick">盐</div>
-				<div data-id="1100" class="tag not-pick">粮食</div>
-				<div data-id="1200" class="tag not-pick">机械设备电器</div>
-				<div data-id="1300" class="tag not-pick">轻工原料及制品</div>
-				<div data-id="1400" class="tag not-pick">有色金属</div>
-				<div data-id="1500" class="tag not-pick">轻工药物产品</div>
-				<div data-id="1601" class="tag not-pick">鲜活农产品</div>
-				<div data-id="1602" class="tag not-pick">冷藏冷冻货物</div>
-				<div data-id="1701" class="tag not-pick">商品汽车</div>
-				<div data-id="1702" class="tag not-pick">快递</div>
-				<div data-id="1700" class="tag not-pick">其他</div>
-			</div>
-		</div>
-		<div class="mui-input-row">
-			<label>货物名称：</label>
-			<input type="text" class="mui-input-clear" placeholder="输入名称" id="goods_name" />
-		</div>
-		<div class="confirm">
-			<button type="button" class="mui-btn mui-btn-primary" id="submit_btn">提交</button>
-		</div>
-	</div>
-	<!-- 弹出框 -->
-	<div class="picker">
-		<div class="picker-bottom">
-			<div class="picker-title">货物信息</div>
-			<div class="options">
-				<div class="option">
-					<div class="option-inner chosen">吨</div>
-				</div>
-				<div class="option">
-					<div class="option-inner">方</div>
-				</div>
-				<div class="option">
-					<div class="option-inner">车</div>
-				</div>
-				<div class="option">
-					<div class="option-inner">件</div>
-				</div>
-			</div>
-			<div class="btns">
-				<div class="btn" id="cancel-btn">取消</div>
-				<div class="line"></div>
-				<div class="btn" id="confirm-btn" style="color: #0a7bcd">确定</div>
-			</div>
-		</div>
-	</div>
-</body>
-
+	</body>
 </html>
