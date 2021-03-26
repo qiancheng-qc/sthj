@@ -51,6 +51,15 @@ $(function () {
 		queryData()
 	}
 
+	// 确定按钮颜色
+	function confirmBtnColor() {
+		if (submitData.length) {
+			$confirmBtn.removeClass('gray').addClass('blue')
+		} else {
+			$confirmBtn.removeClass('blue').addClass('gray')
+		}
+	}
+
 	// 获取数据
 	function queryData() {
 		$.ajax({
@@ -129,6 +138,7 @@ $(function () {
 		submitData = []
 		count = 0
 		$count[0].innerText = count
+    confirmBtnColor()
 	})
 
 	// 选中司机
@@ -153,11 +163,16 @@ $(function () {
 		}
 
 		$count[0].innerText = count
+
+    confirmBtnColor()
 	})
 
-	console.log($.inArray(3, [1, 2, 3]))
-
 	$confirmBtn.on('click', function () {
+    // 如果按钮灰色 直接return
+		if ($confirmBtn.css('background-color') === 'rgb(158, 158, 158)') {
+			return
+		}
+
 		console.log(submitData)
 		sessionStorage.setItem('driver', JSON.stringify(submitData))
 	})

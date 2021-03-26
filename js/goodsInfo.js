@@ -10,7 +10,7 @@ $(function () {
 		price: 0,
 		name: ''
 	}
-  // 税率
+	// 税率
 	var rate = 0
 
 	// 获取用户信息 （税率）
@@ -91,6 +91,7 @@ $(function () {
 		$item3.find('input').val('')
 		data.amount = data.volume = data.ton = 0
 		$item1.children('.danwei')[0].innerText = text
+		subBtnColor()
 		if (text === '吨') {
 			$item2.hide()
 			$item3.hide()
@@ -104,6 +105,7 @@ $(function () {
 		$picker.hide()
 	})
 
+	// 发货数量1
 	$item1.find('input').on('input', function () {
 		console.log($(this).val())
 		data.amount = $(this).val()
@@ -112,23 +114,30 @@ $(function () {
 		} else if (data.unit === '方') {
 			data.volume = $(this).val()
 		}
+		subBtnColor()
 	})
 
+	// 发货数量2
 	$item2.find('input').on('input', function () {
 		console.log($(this).val())
 		data.volume = $(this).val()
+		subBtnColor()
 	})
 
+	// 发货数量3
 	$item3.find('input').on('input', function () {
 		console.log($(this).val())
 		data.ton = $(this).val()
+		subBtnColor()
 	})
 
+	// 运费金额改动 运费总金额随之变动（乘以税率）
 	var $price = $('#price') // 运费金额
 	var $totalSum = $('.total_sum') // 运费总金额
 	console.log($totalSum[0].innerText)
 	$price.on('input', function () {
 		data.price = $(this).val()
+		subBtnColor()
 		if ($(this).val()) {
 			$totalSum[0].innerText = ($(this).val() * (1 + rate)).toFixed(2)
 		} else {
@@ -136,14 +145,41 @@ $(function () {
 		}
 	})
 
+	// 货物名称
 	var $goodsName = $('#goods_name')
 	$goodsName.on('input', function () {
 		data.name = $(this).val()
+		subBtnColor()
 	})
 
+  // 提交按钮颜色
+	function subBtnColor() {
+		if ($item3.css('display') === 'none') {
+			if (data.name && data.price && data.amount && data.ton) {
+				$submitBtn.removeClass('gray').addClass('blue')
+			} else {
+				$submitBtn.removeClass('blue').addClass('gray')
+			}
+		} else {
+			if (data.name && data.price && data.amount && data.ton && data.volume) {
+				$submitBtn.removeClass('gray').addClass('blue')
+			} else {
+				$submitBtn.removeClass('blue').addClass('gray')
+			}
+		}
+	}
+
+	// 提交按钮
 	var $submitBtn = $('#submit_btn')
+
+	// 传递数据
 	$submitBtn.on('click', function () {
+    // 如果按钮灰色 直接return
+		if ($submitBtn.css('background-color') === 'rgb(158, 158, 158)') {
+			return
+		}
+
 		console.log(data)
-    sessionStorage.setItem("goodsInfo", JSON.stringify(data));
+		sessionStorage.setItem('goodsInfo', JSON.stringify(data))
 	})
 })
