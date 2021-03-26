@@ -224,13 +224,14 @@
         }
 
         .lr {
-            height:217px;
+            height: 217px;
             overflow: auto;
         }
+
         #right {
             display: none;
         }
-       
+
 
         /* 省市区 */
         .mui-picker {
@@ -354,7 +355,7 @@
                     <div class="tag caddress">常用路线</div>
                 </div>
                 <div class="lr">
-                    <div id="left" class="popup-left">
+                    <div id="left" class="popup-left left">
                         <div class="popup-middle">
                             <image class="image" src="../images/ordinary/地址.png" mode=""></image>
                             <div class="middle-content">
@@ -363,27 +364,6 @@
                             </div>
                             <div class="middle-couplet">
                                 <image class="font" src="../fonts/seleted.png" mode=""></image>
-                            </div>
-                        </div>
-                        <div class="popup-middle">
-                            <image class="image" src="../images/ordinary/地址.png" mode=""></image>
-                            <div class="middle-content">
-                                <div class="middle-text">江苏省南京市高淳区</div>
-                                <div class="middle-item">五星电器城</div>
-                            </div>
-                        </div>
-                        <div class="popup-middle">
-                            <image class="image" src="../images/ordinary/地址.png" mode=""></image>
-                            <div class="middle-content">
-                                <div class="middle-text">江苏省南京市高淳区</div>
-                                <div class="middle-item">五星电器城</div>
-                            </div>
-                        </div>
-                        <div class="popup-middle">
-                            <image class="image" src="../images/ordinary/地址.png" mode=""></image>
-                            <div class="middle-content">
-                                <div class="middle-text">江苏省南京市高淳区</div>
-                                <div class="middle-item">五星电器城</div>
                             </div>
                         </div>
                     </div>
@@ -431,14 +411,69 @@
     </div>
 </body>
 <script>
+    var $popupLeft = $(".left");
+    var data = {
+        curPage: 1,
+        pagesSize: 10,
+
+    }
+    var historyData = [];
+
+    function show(address, area, city, province) {
+        return `
+            
+        `
+    }
+
+    function renderDrivers(arr) {
+		$popupLeft.empty()
+		arr.forEach(x => {
+			var infoDiv = show(x.address, x.area, x.city, x.province)
+			$popupLeft.append(infoDiv)
+		})
+	}
+
+    function AjaxTest() {  //这个函数是页面加载完执行的，就是你的ajax 请求
+        $.ajax({
+            url: "http://t.company.sthjnet.com/company/line/historyAddr",
+            data: {},
+            headers: {
+                token:
+                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
+            },
+            type: 'POST',
+            cache: false,
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                //这里就可以把data画表格也好其他也好画到页面上
+                data.result.content.forEach(x => {
+                    address = x.address,
+                        console.log(address, "----");
+                    area = x.area,
+                        console.log(area);
+                    city = x.city,
+                        console.log(city, "000000");
+                    province = x.province,
+                        console.log(province, "~~~~~~~~~~~~~~~~~~~~~~~");
+                })
+                renderDrivers(historyData)
+            },
+            error: function () {
+                $("#msg").html("出错了");
+            }
+        });
+    }
+    AjaxTest()
+
     function isHidden(popup) {
         var road = document.getElementById("popup");
         road.style.display = (road.style.display == "block") ? "none" : "block";
     }
 
     $(function () {
-        var $l1 = $(".popup-top"),
-            $l2 = $(".lr");
+        var $l1 = $(".popup-top");
+        $l2 = $(".lr");
         $l1.children().click(function () {
             $l2.children().eq($(this).index())
                 .show().siblings().hide();
