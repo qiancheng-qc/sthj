@@ -1,12 +1,11 @@
 $(function () {
-  // 提交的内容
+	// 提交的内容
 	var data = {
 		goodsNum: 0,
-		sum: 0,
-		totalSum: 0,
-		businessType: '',
-		goodsType: '',
-		goodsName: ''
+		category: '0100',
+		btc: '1002996',
+		price: 0,
+		name: ''
 	}
 
 	var $businessTags = $('.business-type .tag') // 业务类型标签
@@ -14,11 +13,11 @@ $(function () {
 	// 标签点击变蓝 其他还原
 	$businessTags.on('click', function () {
 		$(this).removeClass('not-pick').addClass('pick').siblings().removeClass('pick').addClass('not-pick')
-		console.log($(this)[0].innerText)
-		console.log($(this).data('id'))
+		data.btc = $(this).data('id')
 	})
 	$goodsTags.on('click', function () {
 		$(this).removeClass('not-pick').addClass('pick').siblings().removeClass('pick').addClass('not-pick')
+		data.category = $(this).data('id')
 	})
 
 	var $drop = $('.drop') // 发货数量单位下拉箭头
@@ -64,9 +63,9 @@ $(function () {
 	})
 	// 确定按钮点击 改变发货数量样式
 	$confirmBtn.on('click', function () {
-    $item1.find('input').val('')
-    $item2.find('input').val('')
-    $item3.find('input').val('')
+		$item1.find('input').val('')
+		$item2.find('input').val('')
+		$item3.find('input').val('')
 		$item1.children('.danwei')[0].innerText = text
 		if (text === '吨') {
 			$item2.hide()

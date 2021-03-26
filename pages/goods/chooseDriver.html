@@ -4,19 +4,22 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>选择司机</title>
 		<script src="../../jq/jquery-1.12.4.min.js"></script>
+		<script src="../../js/request.js"></script>
 		<script src="../../js/chooseDriver.js"></script>
-		<link rel="stylesheet" href="../../mui-master/dist/css/mui.css">
+		<link rel="stylesheet" href="../../mui-master/dist/css/mui.css" />
 		<link rel="stylesheet" href="../../css/base.css" />
 		<link rel="stylesheet" href="../../css/header.css" />
 		<link rel="stylesheet" href="../../css/chooseDriver.css" />
 	</head>
 	<body>
 		<div class="header">
-			<div class="arrow"><a href=""><img src="../../images/返回.png" alt=""></a></div>
+			<div class="arrow">
+				<a href=""><img src="../../images/返回.png" alt="" /></a>
+			</div>
 			选择司机
-			<div class="header-right"><a href="addDriver.html">添加</a></div>
+			<!-- <div class="header-right"><a href="addDriver.html">添加</a></div> -->
 		</div>
 		<div class="content">
 			<div class="search-box">
@@ -24,34 +27,7 @@
 				<input type="text" placeholder="手机号或姓名" />
 				<button type="button" class="mui-btn mui-btn-warning">搜索</button>
 			</div>
-			<div class="drivers">
-				<!-- <div class="driver-info">
-					<div class="radio">
-						<input class="driver-input" type="radio" name="driver" id="zhangsan" />
-						<label class="mui-icon driver-label" for="zhangsan"></label>
-					</div>
-					<div class="name-phone">
-						<div class="name">张三</div>
-						<div class="phone">13333333333</div>
-					</div>
-					<div class="driver-status">
-						<div class="notBusy">空闲中</div>
-					</div>
-				</div>
-				<div class="driver-info">
-					<div class="radio">
-						<input class="driver-input" type="radio" name="driver" id="lisi" />
-						<label class="mui-icon driver-label" for="lisi"></label>
-					</div>
-					<div class="name-phone">
-						<div class="name">李四</div>
-						<div class="phone">13333333333</div>
-					</div>
-					<div class="driver-status">
-						<div class="busy">已指派</div>
-					</div>
-				</div> -->
-			</div>
+			<div class="drivers"></div>
 		</div>
 		<div class="bottom-fixed">
 			<div class="bottom-left">已选择&nbsp;<span style="color: #ff0018">0</span>&nbsp;位司机</div>
