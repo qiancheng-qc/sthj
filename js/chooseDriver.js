@@ -175,5 +175,7 @@ $(function () {
 
 		console.log(submitData)
 		sessionStorage.setItem('driver', JSON.stringify(submitData))
+
+    window.location.replace('ordinary.html')
 	})
 })
