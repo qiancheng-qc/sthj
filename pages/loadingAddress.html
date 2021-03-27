@@ -355,49 +355,15 @@
                     <div class="tag caddress">常用路线</div>
                 </div>
                 <div class="lr">
-                    <div id="left" class="popup-left left">
-                        <div class="popup-middle">
-                            <image class="image" src="../images/ordinary/地址.png" mode=""></image>
-                            <div class="middle-content">
-                                <div class="middle-text">江苏省南京市高淳区</div>
-                                <div class="middle-item">五星电器城</div>
-                            </div>
-                            <div class="middle-couplet">
-                                <image class="font" src="../fonts/seleted.png" mode=""></image>
-                            </div>
-                        </div>
+                    <div id="left" class="popup-left">
+                        <!-- '<div class="middle-couplet">'+
+                            '<image class="font" src="../fonts/seleted.png" mode="">'+'</image>'+
+                        '</div>'+ -->
                     </div>
                     <div id="right" class="popup-right">
-                        <div class="popup-middle">
-                            <image class="image" src="../images/ordinary/地址.png" mode=""></image>
-                            <div class="middle-content">
-                                <div class="middle-text">江苏省南京市高淳区2</div>
-                                <div class="middle-item">四星电器城</div>
-                            </div>
-                            <div class="middle-couplet">
-                                <image class="font" src="../fonts/seleted.png" mode=""></image>
-                            </div>
-                        </div>
-                        <div class="popup-middle">
-                            <image class="image" src="../images/ordinary/地址.png" mode=""></image>
-                            <div class="middle-content">
-                                <div class="middle-text">江苏省南京市高淳区2</div>
-                                <div class="middle-item">四星电器城</div>
-                            </div>
-                        </div>
-                        <div class="popup-middle">
-                            <image class="image" src="../images/ordinary/地址.png" mode=""></image>
-                            <div class="middle-content">
-                                <div class="middle-text">江苏省南京市高淳区2</div>
-                                <div class="middle-item">四星电器城</div>
-                            </div>
-                        </div>
-                        <div class="popup-middle">
-                            <image class="image" src="../images/ordinary/地址.png" mode=""></image>
-                            <div class="middle-content">
-                                <div class="middle-text">江苏省南京市高淳区2</div>
-                                <div class="middle-item">四星电器城</div>
-                            </div>
+                        <div class="empty">
+                            <img src="../fonts/mipmap-xxhdpi/空内容 拷贝.png" alt="">
+                            <div class="empty-content">暂无内容</div>
                         </div>
                     </div>
                 </div>
@@ -411,28 +377,6 @@
     </div>
 </body>
 <script>
-    var $popupLeft = $(".left");
-    var data = {
-        curPage: 1,
-        pagesSize: 10,
-
-    }
-    var historyData = [];
-
-    function show(address, area, city, province) {
-        return `
-            
-        `
-    }
-
-    function renderDrivers(arr) {
-		$popupLeft.empty()
-		arr.forEach(x => {
-			var infoDiv = show(x.address, x.area, x.city, x.province)
-			$popupLeft.append(infoDiv)
-		})
-	}
-
     function AjaxTest() {  //这个函数是页面加载完执行的，就是你的ajax 请求
         $.ajax({
             url: "http://t.company.sthjnet.com/company/line/historyAddr",
@@ -444,20 +388,25 @@
             type: 'POST',
             cache: false,
             dataType: "json",
-            success: function (res) {
-                console.log(res);
+            success: function (data) {
+                console.log(data);
+                //地址的数组，所需要的数据
+                var addressArr = data.result.content;
+                //拼接字符串
+                var str = '';//历史地址
                 //这里就可以把data画表格也好其他也好画到页面上
-                data.result.content.forEach(x => {
-                    address = x.address,
-                        console.log(address, "----");
-                    area = x.area,
-                        console.log(area);
-                    city = x.city,
-                        console.log(city, "000000");
-                    province = x.province,
-                        console.log(province, "~~~~~~~~~~~~~~~~~~~~~~~");
-                })
-                renderDrivers(historyData)
+                for (var i = 0; i < addressArr.length; i++) {
+                    str += '<div class="popup-middle">' +
+                        '<image class="image" src="../images/ordinary/地址.png" mode="">' + '</image>' +
+                        '<div class="middle-content">' +
+                        '<div class="middle-text">' + addressArr[i].province + addressArr[i].city + addressArr[i].area + '</div>' +
+                        '<div class="middle-item">' + addressArr[i].address + '</div>' +
+                        '</div>' +
+
+                        '</div>';
+                }
+                $('.popup-left').html(str);
+
             },
             error: function () {
                 $("#msg").html("出错了");
