@@ -29,19 +29,6 @@ $(function () {
 			mobile: '15357159182',
 			idNo: '342401199611054470',
 			time: '2020-01-01'
-		},
-		end: {
-			province: '天津市',
-			city: '和平区',
-			area: '和平区',
-			address: 'xxx',
-			pc: '120000',
-			cc: '120101',
-			ac: '120101',
-			name: '丁总',
-			mobile: '15357159182',
-			idNo: '342401199611054470',
-			time: '2020-01-01'
 		}
 	}
 	var token
@@ -50,10 +37,10 @@ $(function () {
 
 	// 页面跳转
 	$loadingAddress.on('click', function () {
-		window.location.href = './loadingAddress.html'
+		window.location.href = './loadingAddress.html?from=ordinary'
 	})
 	$unloadGoods.on('click', function () {
-		window.location.href = './unloadGoods.html'
+		window.location.href = './unloadGoods.html?from=ordinary'
 	})
 	$goodsInfo.on('click', function () {
 		window.location.href = './goodsInfo.html?from=ordinary'
@@ -78,29 +65,24 @@ $(function () {
 	}
 	queryRate()
 
-	// 获取信息维护信息 （发货人 收货人 name,mobile,idNo）
-	function queryInfo() {
-		$.ajax({
-			url: 'http://t.company.sthjnet.com/company/company/info',
-			type: 'POST',
-			headers: {
-				token
-			},
-			success: function (res) {
-				// submitData.start.name = res.result.startName
-				// submitData.start.mobile = res.result.startMobile
-				// submitData.start.idNo = res.result.startIdNo
-				// submitData.end.name = res.result.endName
-				// submitData.end.mobile = res.result.endMobile
-				// submitData.end.idNo = res.result.endIdNo
-			}
-		})
-	}
-	queryInfo()
-
 	// 从sessionStorage获取数据并处理
 	function checkLoadingAddress() {}
-	function checkUnloadGoods() {}
+	function checkUnloadGoods() {
+		unloadGoodsStorage = JSON.parse(sessionStorage.getItem('end'))
+		console.log(unloadGoodsStorage)
+
+		if (unloadGoodsStorage) {
+			submitData.end = unloadGoodsStorage
+			// 修改卸货地址文本
+			if (unloadGoodsStorage.province === unloadGoodsStorage.city) {
+				$unloadGoods[1].innerText = unloadGoodsStorage.province + unloadGoodsStorage.address
+			} else if (unloadGoodsStorage.city === unloadGoodsStorage.area) {
+				$unloadGoods[1].innerText = unloadGoodsStorage.province + unloadGoodsStorage.city + unloadGoodsStorage.address
+			} else {
+				$unloadGoods[1].innerText = unloadGoodsStorage.province + unloadGoodsStorage.city + unloadGoodsStorage.area + unloadGoodsStorage.address
+			}
+		}
+	}
 	function checkGoodsInfo() {
 		goodsInfoStorage = JSON.parse(sessionStorage.getItem('goodsInfo'))
 
@@ -138,7 +120,7 @@ $(function () {
 
 	// 判断提交按钮颜色
 	function submitBtnColor() {
-		if (goodsInfoStorage && driverStorage) {
+		if (unloadGoodsStorage && goodsInfoStorage && driverStorage) {
 			$submitBtn.removeClass('gray').addClass('blue')
 		} else {
 			$submitBtn.removeClass('blue').addClass('gray')
