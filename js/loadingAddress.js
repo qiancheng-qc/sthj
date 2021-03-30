@@ -18,7 +18,7 @@ $(function () {
 		idNo: '',
 		time: ''
 	}
-	// 信息维护接口获取的收货人信息
+	// 信息维护接口获取的发货人信息
 	var deliveryInfo = {
 		name: '',
 		mobile: '',
@@ -108,7 +108,7 @@ $(function () {
 		})
 	}
 
-	queryInfo() // 获取收货人 name,mobile,idNo
+	queryInfo() // 获取发货人 name,mobile,idNo
 	queryHistoryAddr() // 获取历史地址
 
 	var $contentRoad = $('.contentRoad') // 历史/常用路线 按钮
@@ -261,7 +261,7 @@ $(function () {
 			$detailText.val('')
 			areaData.address = ''
 
-			// 从信息维护接口获取的收货人信息
+			// 从信息维护接口获取的发货人信息
 			areaData.name = deliveryInfo.name
 			areaData.mobile = deliveryInfo.mobile
 			areaData.idNo = deliveryInfo.idNo
@@ -308,7 +308,7 @@ $(function () {
 			return
 		}
 
-		sessionStorage.setItem('end', JSON.stringify(areaData))
+		sessionStorage.setItem('start', JSON.stringify(areaData))
 		console.log(areaData)
 
 		window.location.replace(to + '.html')

@@ -14,6 +14,9 @@ $(function () {
 	var driversData = [] // 后台数据
 	var submitData = [] // 提交的内容 数组
 
+	var token
+	token = sessionStorage.getItem('token')
+
 	// 创建司机信息 class="driver-info"
 	function createDriverInfo(id, name, phone, carNum, statusClass, statusName) {
 		return `<div class="driver-info" data-id="${id}">
@@ -66,8 +69,7 @@ $(function () {
 			url: 'http://t.company.sthjnet.com/company/drive/driverFree',
 			type: 'POST',
 			headers: {
-				token:
-					'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
+				token
 			},
 			data,
 			success: function (res) {
@@ -138,7 +140,7 @@ $(function () {
 		submitData = []
 		count = 0
 		$count[0].innerText = count
-    confirmBtnColor()
+		confirmBtnColor()
 	})
 
 	// 选中司机
@@ -164,11 +166,11 @@ $(function () {
 
 		$count[0].innerText = count
 
-    confirmBtnColor()
+		confirmBtnColor()
 	})
 
 	$confirmBtn.on('click', function () {
-    // 如果按钮灰色 直接return
+		// 如果按钮灰色 直接return
 		if ($confirmBtn.css('background-color') === 'rgb(158, 158, 158)') {
 			return
 		}
@@ -176,6 +178,6 @@ $(function () {
 		console.log(submitData)
 		sessionStorage.setItem('driver', JSON.stringify(submitData))
 
-    window.location.replace('ordinary.html')
+		window.location.replace('ordinary.html')
 	})
 })

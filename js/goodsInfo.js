@@ -14,14 +14,16 @@ $(function () {
 	// 税率
 	var rate = 0
 
+	var token
+	token = sessionStorage.getItem('token')
+
 	// 获取用户信息 （税率）
 	function queryRate() {
 		$.ajax({
 			url: 'http://t.company.sthjnet.com/company/user/info',
 			type: 'POST',
 			headers: {
-				token:
-					'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
+				token
 			},
 			success: function (res) {
 				rate = res.result.company.rate / 100

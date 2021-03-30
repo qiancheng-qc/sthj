@@ -16,24 +16,12 @@ $(function () {
 	// 提交的data
 	var submitData = {
 		transportWay: 1,
-		tstc: '1',
-		start: {
-			province: '北京市',
-			city: '东城区',
-			area: '东城区',
-			address: 'xxx',
-			pc: '110000',
-			cc: '110101',
-			ac: '110101',
-			name: '丁总',
-			mobile: '15357159182',
-			idNo: '342401199611054470',
-			time: '2020-01-01'
-		}
+		tstc: '1'
 	}
 	var token
 	token =
 		'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
+	sessionStorage.setItem('token', token)
 
 	// 页面跳转
 	$loadingAddress.on('click', function () {
@@ -66,7 +54,22 @@ $(function () {
 	queryRate()
 
 	// 从sessionStorage获取数据并处理
-	function checkLoadingAddress() {}
+	function checkLoadingAddress() {
+		loadingAddressStorage = JSON.parse(sessionStorage.getItem('start'))
+		console.log(loadingAddressStorage)
+
+		if (loadingAddressStorage) {
+			submitData.start = loadingAddressStorage
+			// 修改卸货地址文本
+			if (loadingAddressStorage.province === loadingAddressStorage.city) {
+				$loadingAddress[1].innerText = loadingAddressStorage.province + loadingAddressStorage.address
+			} else if (loadingAddressStorage.city === loadingAddressStorage.area) {
+				$loadingAddress[1].innerText = loadingAddressStorage.province + loadingAddressStorage.city + loadingAddressStorage.address
+			} else {
+				$loadingAddress[1].innerText = loadingAddressStorage.province + loadingAddressStorage.city + loadingAddressStorage.area + loadingAddressStorage.address
+			}
+		}
+	}
 	function checkUnloadGoods() {
 		unloadGoodsStorage = JSON.parse(sessionStorage.getItem('end'))
 		console.log(unloadGoodsStorage)
@@ -120,7 +123,7 @@ $(function () {
 
 	// 判断提交按钮颜色
 	function submitBtnColor() {
-		if (unloadGoodsStorage && goodsInfoStorage && driverStorage) {
+		if (loadingAddressStorage && unloadGoodsStorage && goodsInfoStorage && driverStorage) {
 			$submitBtn.removeClass('gray').addClass('blue')
 		} else {
 			$submitBtn.removeClass('blue').addClass('gray')
