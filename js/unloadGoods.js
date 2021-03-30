@@ -70,9 +70,8 @@ $(function () {
 				pageSize: 1000000
 			},
 			success: function (res) {
-				if (res.result.content.length === 0) {
-					$left.find('.empty').show()
-				} else {
+				if (res.result.content.length > 0) {
+					$left.find('.empty').hide()
 					historyAddress = res.result.content
 					renderAddrs(historyAddress)
 				}
@@ -157,29 +156,32 @@ $(function () {
 	// 历史/常用路线弹出框底部确定按钮
 	$popupConfirm.on('click', function () {
 		console.log(historyAddress)
-		historyAddress.forEach(x => {
-			if (x.id === +chosenId) {
-				console.log(x)
-				areaData.province = x.province
-				areaData.city = x.city
-				areaData.area = x.area
-				areaData.pc = x.pc
-				areaData.cc = x.cc
-				areaData.ac = x.ac
-				areaData.address = x.address
-				areaData.name = x.name
-				areaData.mobile = x.phone
-				areaData.idNo = x.idNo
-			}
-		})
+		if (chosenId) {
+			historyAddress.forEach(x => {
+				if (x.id === +chosenId) {
+					console.log(x)
+					areaData.province = x.province
+					areaData.city = x.city
+					areaData.area = x.area
+					areaData.pc = x.pc
+					areaData.cc = x.cc
+					areaData.ac = x.ac
+					areaData.address = x.address
+					areaData.name = x.name
+					areaData.mobile = x.phone
+					areaData.idNo = x.idNo
+				}
+			})
 
-		// 赋值给详细地址input
-		$detailText.val(areaData.address)
+			// 赋值给详细地址input
+			$detailText.val(areaData.address)
 
-		// 修改所在省市区文字
-		changeAreaText()
+			// 修改所在省市区文字
+			changeAreaText()
+		}
 		// 底部按钮颜色
 		confirmBtnColor()
+
 		// 弹出框关闭
 		$popup.hide()
 	})
