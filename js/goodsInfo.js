@@ -192,6 +192,6 @@ $(function () {
 		console.log(data)
 		sessionStorage.setItem('goodsInfo', JSON.stringify(data))
 
-		window.location.replace(to + '.html')
+		window.location.replace(to + '.html?token=' + token)
 	})
 })

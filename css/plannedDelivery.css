@@ -50,10 +50,7 @@ body {
 	font-weight: 500;
 	line-height: 44px;
 	text-align: center;
-}
-.header .header-right a {
-	color: #0a7bcd;
-	text-decoration: none;
+  color: #0a7bcd;
 }
 .topContent {
 	margin-top: 8px;

@@ -178,6 +178,6 @@ $(function () {
 		console.log(submitData)
 		sessionStorage.setItem('driver', JSON.stringify(submitData))
 
-		window.location.replace('ordinary.html')
+		window.location.replace('ordinary.html?token=' + token)
 	})
 })

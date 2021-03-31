@@ -313,6 +313,6 @@ $(function () {
 		sessionStorage.setItem('end', JSON.stringify(areaData))
 		console.log(areaData)
 
-		window.location.replace(to + '.html')
+		window.location.replace(to + '.html?token=' + token)
 	})
 })
