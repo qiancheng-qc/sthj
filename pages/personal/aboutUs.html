@@ -41,10 +41,24 @@
 		</div>
 	</body>
 	<script>
+		var type = window.location.href.split('?')[1].split('&')[0].split('=')[1]
 		var arrow = document.querySelector('.arrow')
-		function backToApp() {
-			console.log('back to app')
-		}
 		arrow.onclick = backToApp
+		console.log(type)
+
+		if (type === 'android') {
+			// alert('111111')
+			// var token = window.android.getToken()
+			function backToApp() {
+				console.log('back to app')
+				window.android.backToApp()
+			}
+		}
+		if (type === 'ios') {
+			function backToApp() {
+				console.log('back to app')
+				console.log('ios')
+			}
+		}
 	</script>
 </html>

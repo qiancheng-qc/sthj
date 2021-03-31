@@ -31,21 +31,30 @@ $(function () {
 		tstc: '1'
 	}
 	var token
-	token = window.location.href.split('token=')[1]
+	// token = window.location.href.split('token=')[1]
+	token =
+		'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
 	console.log(token)
-	// token =
-	// 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
 	sessionStorage.setItem('token', token)
+
+  // 返回并刷新
+	window.onpageshow = function () {
+		var historyStorage = sessionStorage.getItem('history')
+    if (historyStorage === 'true') {
+      sessionStorage.setItem('history', false)
+      window.location.reload()
+    }
+	}
 
 	// 页面跳转
 	$loadingAddress.on('click', function () {
-		window.location.href = './loadingAddress.html?from=ordinary'
+		window.location.href = './loadingAddress.html'
 	})
 	$unloadGoods.on('click', function () {
-		window.location.href = './unloadGoods.html?from=ordinary'
+		window.location.href = './unloadGoods.html'
 	})
 	$goodsInfo.on('click', function () {
-		window.location.href = './goodsInfo.html?from=ordinary'
+		window.location.href = './goodsInfo.html'
 	})
 	$driver.on('click', function () {
 		window.location.href = './chooseDriver.html'
@@ -167,7 +176,7 @@ $(function () {
 			},
 			success: function (res) {
 				console.log(res)
-        backToApp()
+				backToApp()
 			}
 		})
 	})

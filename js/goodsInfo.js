@@ -181,7 +181,6 @@ $(function () {
 
 	// 提交按钮
 	var $submitBtn = $('#submit_btn')
-	var to = window.location.href.split('from=')[1]
 	// 传递数据
 	$submitBtn.on('click', function () {
 		// 如果按钮灰色 直接return
@@ -192,6 +191,8 @@ $(function () {
 		console.log(data)
 		sessionStorage.setItem('goodsInfo', JSON.stringify(data))
 
-		window.location.replace(to + '.html?token=' + token)
+		// 返回并刷新
+		sessionStorage.setItem('history', true)
+		window.history.back()
 	})
 })
