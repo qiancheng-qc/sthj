@@ -11,7 +11,7 @@
 			.content {
 				width: calc(100% - 32px);
 				margin: 20px 16px 0;
-        padding-bottom: 1px;
+				padding-bottom: 1px;
 			}
 			.content p {
 				text-indent: 2em;
@@ -27,7 +27,7 @@
 	<body>
 		<div class="header">
 			<div class="arrow">
-				<a href=""><img src="../../images/返回.png" alt="" /></a>
+				<img src="../../images/返回.png" alt="" />
 			</div>
 			神通货金用户注册协议
 		</div>
@@ -54,4 +54,11 @@
 			<p>京东集团奉行客户为先、诚信、协作、感恩、拼搏、担当的价值观，以“技术为本，致力于更高效和可持续的世界”为使命，目标是成为全球最值得信赖的企业。</p>
 		</div>
 	</body>
+	<script>
+		var arrow = document.querySelector('.arrow')
+		function backToApp() {
+			console.log('back to app')
+		}
+		arrow.onclick = backToApp
+	</script>
 </html>

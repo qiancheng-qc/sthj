@@ -1,4 +1,16 @@
 $(function () {
+  $('.arrow').on('click', function() {
+    backToApp()
+  })
+  function backToApp() {
+    console.log('back to app')
+  }
+  $('.header-right').on('click', function() {
+    waitTakeGoods()
+  })
+  function waitTakeGoods() {
+    console.log('待提货')
+  }
 	var $loadingAddress = $('.loading_address')
 	var $unloadGoods = $('.unload_goods')
 	var $goodsInfo = $('.goods_info')
@@ -17,8 +29,10 @@ $(function () {
 		tstc: '1'
 	}
 	var token
-	token =
-		'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
+	token = window.location.href.split('token=')[1]
+	console.log(token)
+	// token =
+	// 	'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
 	sessionStorage.setItem('token', token)
 
 	// 页面跳转
@@ -143,6 +157,7 @@ $(function () {
 			},
 			success: function (res) {
 				console.log(res)
+        backToApp()
 			}
 		})
 	})
