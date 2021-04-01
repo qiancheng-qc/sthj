@@ -1,6 +1,12 @@
 $(function () {
+	var from = window.location.href.split('from=')[1].split('&')[0]
+	console.log(from)
 	$('.arrow').on('click', function () {
-		backToApp()
+		if (from === 'carlist') {
+			window.history.back()
+		} else {
+			backToApp()
+		}
 	})
 	function backToApp() {
 		console.log('back to app')

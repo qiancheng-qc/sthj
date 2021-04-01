@@ -1,4 +1,11 @@
 $(function () {
+	$('.arrow').on('click', function () {
+		backToApp()
+	})
+	function backToApp() {
+		console.log('back to app')
+	}
+
 	var $drivers = $('.drivers')
 	var $searchInput = $('.search-box input') // 搜索框
 	var $searchBtn = $('.search-box button') // 搜索按钮
@@ -69,28 +76,53 @@ $(function () {
 
 	// 获取数据
 	function queryData() {
+		// $.ajax({
+		// 	url: 'http://t.company.sthjnet.com/company/drive/driverFree',
+		// 	type: 'POST',
+		// 	headers: {
+		// 		token
+		// 	},
+		// 	data,
+		// 	success: function (res) {
+		// 		console.log(res)
+		// 		res.result.content.forEach(x => {
+		// 			driversData.push({
+		// 				id: x.drive.id,
+		// 				name: x.drive.driver.name,
+		// 				phone: x.drive.driver.mobile,
+		// 				carNum: x.drive.truck.code,
+		// 				statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
+		// 				statusName: x.cnt > 0 ? '已指派' : '空闲中'
+		// 				// statusClass: 'notBusy',
+		// 				// statusName: '空闲中'
+		// 			})
+		// 		})
+		// 		console.log(driversData)
+		// 		renderDrivers(driversData)
+		// 		driversData = []
+		// 	}
+		// })
 		$.ajax({
-			url: 'http://t.company.sthjnet.com/company/drive/driverFree',
+			url: 'http://t.company.sthjnet.com/company/drive/list',
 			type: 'POST',
 			headers: {
 				token
 			},
 			data,
 			success: function (res) {
-				console.log(res)
+				console.log(res.result.content)
 				res.result.content.forEach(x => {
 					driversData.push({
-						id: x.drive.id,
-						name: x.drive.driver.name,
-						phone: x.drive.driver.mobile,
-						carNum: x.drive.truck.code,
-						statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
-						statusName: x.cnt > 0 ? '已指派' : '空闲中'
-						// statusClass: 'notBusy',
-						// statusName: '空闲中'
+						id: x.id,
+						name: x.driver.name,
+						phone: x.driver.mobile,
+						carNum: x.truck.code,
+						// statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
+						// statusName: x.cnt > 0 ? '已指派' : '空闲中'
+						statusClass: 'notBusy',
+						statusName: '空闲中'
 					})
 				})
-				console.log(driversData)
 				renderDrivers(driversData)
 				driversData = []
 			}
@@ -182,8 +214,6 @@ $(function () {
 		console.log(submitData)
 		sessionStorage.setItem('driver', JSON.stringify(submitData))
 
-		// 返回并刷新
-		sessionStorage.setItem('history', true)
-		window.history.back()
+		window.location.href = '../ordinary.html?type=ios&from=carlist'
 	})
 })
