@@ -312,7 +312,9 @@ $(function () {
 
 		sessionStorage.setItem('start', JSON.stringify(areaData))
 		console.log(areaData)
-
-		window.location.replace(to + '.html?token=' + token)
+    
+    // 返回并刷新
+		sessionStorage.setItem('history', true)
+		window.history.back()
 	})
 })

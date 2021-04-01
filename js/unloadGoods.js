@@ -302,8 +302,6 @@ $(function () {
 	}
 	confirmBtnColor()
 
-	var to = window.location.href.split('from=')[1]
-
 	// 页面底部按钮 点击提交
 	$confirmBtn.on('click', function () {
 		if ($confirmBtn.css('background-color') === 'rgb(158, 158, 158)') {
@@ -313,6 +311,8 @@ $(function () {
 		sessionStorage.setItem('end', JSON.stringify(areaData))
 		console.log(areaData)
 
-		window.location.replace(to + '.html?token=' + token)
+		// 返回并刷新
+		sessionStorage.setItem('history', true)
+		window.history.back()
 	})
 })

@@ -48,7 +48,9 @@ $(function () {
 			data.driverName = data.driverPhone = ''
 		} else if (val.length === 11) {
 			data.driverPhone = val
+			data.driverName = ''
 		} else {
+			data.driverPhone = ''
 			data.driverName = val
 		}
 		queryData()
@@ -178,6 +180,8 @@ $(function () {
 		console.log(submitData)
 		sessionStorage.setItem('driver', JSON.stringify(submitData))
 
-		window.location.replace('ordinary.html?token=' + token)
+		// 返回并刷新
+		sessionStorage.setItem('history', true)
+		window.history.back()
 	})
 })
