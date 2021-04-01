@@ -37,13 +37,13 @@ $(function () {
 	console.log(token)
 	sessionStorage.setItem('token', token)
 
-  // 返回并刷新
+	// 返回并刷新
 	window.onpageshow = function () {
 		var historyStorage = sessionStorage.getItem('history')
-    if (historyStorage === 'true') {
-      sessionStorage.setItem('history', false)
-      window.location.reload()
-    }
+		if (historyStorage === 'true') {
+			sessionStorage.setItem('history', false)
+			window.location.reload()
+		}
 	}
 
 	// 页面跳转
@@ -159,12 +159,23 @@ $(function () {
 	checkDriver()
 	submitBtnColor()
 
+	var saveSign = sessionStorage.getItem('saveSign')
+	console.log(saveSign)
+
 	$submitBtn.on('click', function () {
 		// 如果按钮灰色 直接return
 		if ($submitBtn.css('background-color') === 'rgb(158, 158, 158)') {
 			return
 		}
+		console.log(submitData)
 
+		if (saveSign === 'true') {
+			mui.confirm('是否保存地址', '提示', ['取消', '确认'], saveAddress, 'div')
+		} else {
+			delivery()
+		}
+	})
+	function delivery() {
 		var data = JSON.stringify(submitData)
 		console.log(data)
 		$.ajax({
@@ -179,5 +190,35 @@ $(function () {
 				backToApp()
 			}
 		})
-	})
+	}
+	function saveAddress(e) {
+		if (e.index === 1) {
+			$.ajax({
+				url: 'http://t.company.sthjnet.com/company/line/historyAddrAdd',
+				type: 'POST',
+				data: submitData.start,
+				headers: {
+					token
+				},
+				success: function (res) {
+					delivery()
+					console.log(res)
+				}
+			})
+			$.ajax({
+				url: 'http://t.company.sthjnet.com/company/line/historyAddrAdd',
+				type: 'POST',
+				data: submitData.end,
+				headers: {
+					token
+				},
+				success: function (res) {
+					delivery()
+					console.log(res)
+				}
+			})
+		} else {
+			delivery()
+		}
+	}
 })

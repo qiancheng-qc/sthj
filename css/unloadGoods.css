@@ -220,6 +220,11 @@ body {
 	color: #5c5c5c;
 }
 
+.middle-content2 {
+  width: calc(50% - 80px);
+	color: #5c5c5c;
+}
+
 .middle-text {
 	font-size: 14px;
   width: 100%;
@@ -234,6 +239,13 @@ body {
   overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+.right_arrow {
+  margin: 0 17px;
+  width: 30px;
+  height: 7px;
+  /* background-color: #0a7bcd; */
+  background-image: url(../images/1.png);
 }
 
 .middle-couplet {

@@ -5,24 +5,42 @@ $(function () {
 	var $detailText = $('#detailText') // 详细地址输入框
 	var region // 级联选择框的数据
 	// 提交后台的数据
-	var areaData = {
-		province: '',
-		city: '',
-		area: '',
-		pc: '',
-		cc: '',
-		ac: '',
-		address: '',
-		name: '',
-		mobile: '',
-		idNo: '',
-		time: ''
-	}
+	var areaData = [
+		{
+			province: '',
+			city: '',
+			area: '',
+			pc: '',
+			cc: '',
+			ac: '',
+			address: '',
+			name: '',
+			mobile: '',
+			idNo: '',
+			time: ''
+		},
+		{
+			province: '',
+			city: '',
+			area: '',
+			pc: '',
+			cc: '',
+			ac: '',
+			address: '',
+			name: '',
+			mobile: '',
+			idNo: '',
+			time: ''
+		}
+	]
 	// 信息维护接口获取的发货人信息
 	var deliveryInfo = {
 		name: '',
 		mobile: '',
-		idNo: ''
+		idNo: '',
+		name2: '',
+		mobile2: '',
+		idNo2: ''
 	}
 	// 省市区弹出框
 	var picker = new mui.PopPicker({
@@ -31,14 +49,17 @@ $(function () {
 
 	// 获取时间
 	var time = new Date()
-	areaData.time = time.getFullYear() + '-' + (time.getMonth() + 1 + '').padStart(2, 0) + '-' + time.getDate()
+	areaData[0].time = areaData[1].time = time.getFullYear() + '-' + (time.getMonth() + 1 + '').padStart(2, 0) + '-' + time.getDate()
 
 	var token
 	token = sessionStorage.getItem('token')
 
-	var $left = $('#left') // 历史地址容器
-	var historyAddress = [] // 获取的历史地址
-	var chosenId // 历史地址选中的id
+	var $left = $('#left') // 常用路线容器
+	var $right = $('#right') // 历史地址容器
+	var historyAddress = [] // 获取的常用路线
+	var hisAddr = [] // 获取的历史地址
+	var chosenId // 常用路线选中的id
+	var chosenId2 // 历史地址选中的id
 
 	// 获取信息维护信息 （发货人 收货人 name,mobile,idNo）
 	function queryInfo() {
@@ -53,11 +74,15 @@ $(function () {
 				deliveryInfo.name = res.result.startName
 				deliveryInfo.mobile = res.result.startMobile
 				deliveryInfo.idNo = res.result.startIdNo
+
+				deliveryInfo.name2 = res.result.endName
+				deliveryInfo.mobile2 = res.result.endMobile
+				deliveryInfo.idNo2 = res.result.endIdNo
 			}
 		})
 	}
 
-	// 获取历史地址
+	// 获取常用路线
 	function queryHistoryAddr() {
 		$.ajax({
 			url: 'http://t.company.sthjnet.com/company/line/historyAddr',
@@ -79,7 +104,30 @@ $(function () {
 		})
 	}
 
-	// 创建历史地址
+	// 获取历史地址
+	function getList() {
+		$.ajax({
+			url: 'http://t.company.sthjnet.com/company/line/getList',
+			type: 'POST',
+			headers: {
+				token
+			},
+			data: {
+				curPage: 1,
+				pageSize: 1000000
+			},
+			success: function (res) {
+				console.log(res.result.content)
+				if (res.result.content.length > 0) {
+					$right.find('.empty').hide()
+					hisAddr = res.result.content
+					renderAddrs2(hisAddr)
+				}
+			}
+		})
+	}
+
+	// 创建常用路线
 	function createAddrInfo(id, location, detail) {
 		return `<div class="popup-middle" data-id="location${id}">
               <image class="image" src="../images/ordinary/地址.png" mode=""></image>
@@ -91,7 +139,7 @@ $(function () {
             </div>`
 	}
 
-	// 将创建的历史地址渲染到页面
+	// 将创建的常用路线渲染到页面
 	function renderAddrs(arr) {
 		arr.forEach(x => {
 			var location = ''
@@ -107,8 +155,50 @@ $(function () {
 		})
 	}
 
+	// 创建历史地址
+	function createAddrInfo2(id, location, detail, location2, detail2) {
+		return `<div class="popup-middle" data-id="line${id}">
+              <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+              <div class="middle-content2">
+                <div class="middle-text">${location}</div>
+                <div class="middle-item">${detail}</div>
+              </div>
+              <div class="right_arrow"></div>
+              <div class="middle-content2">
+                <div class="middle-text">${location2}</div>
+                <div class="middle-item">${detail2}</div>
+              </div>
+              <div class="chosenOne"></div>
+            </div>`
+	}
+
+	// 将创建的历史地址渲染到页面
+	function renderAddrs2(arr) {
+		arr.forEach(x => {
+			var location = ''
+			var location2 = ''
+			if (x.stProvince === x.stCity) {
+				location = x.stProvince
+			} else if (x.stCity === x.stArea) {
+				location = x.stProvince + x.stCity
+			} else {
+				location = x.stProvince + x.stCity + x.stArea
+			}
+			if (x.destProvince === x.destCity) {
+				location2 = x.destProvince
+			} else if (x.destCity === x.destArea) {
+				location2 = x.destProvince + x.destCity
+			} else {
+				location2 = x.destProvince + x.destCity + x.destArea
+			}
+			var infoDiv = createAddrInfo2(x.id, location, x.stAddress, location2, x.destAddress)
+			$right.append(infoDiv)
+		})
+	}
+
 	queryInfo() // 获取发货人 name,mobile,idNo
-	queryHistoryAddr() // 获取历史地址
+	queryHistoryAddr() // 获取常用路线
+	getList() // 获取历史地址
 
 	var $contentRoad = $('.contentRoad') // 历史/常用路线 按钮
 	var $popup = $('#popup') // 历史/常用路线弹出框弹出
@@ -139,46 +229,102 @@ $(function () {
 	})
 
 	// 历史/常用切换
+	var sign = '常用路线'
 	var $popupTop = $('.popup-top')
 	var $lr = $('.lr')
 	$popupTop.children().click(function () {
+		sign = $(this)[0].innerText
 		$(this).removeClass('caddress').addClass('laddress').siblings().removeClass('laddress').addClass('caddress')
 		$lr.children().eq($(this).index()).show().siblings().hide()
 	})
 
-	// 点击历史地址 选中
+	// 点击常用路线 选中
 	$left.on('click', '.popup-middle', function () {
 		chosenId = $(this).data('id').split('location')[1]
 		$(this).find('.chosenOne').show()
 		$(this).siblings().find('.chosenOne').hide()
 	})
 
+	// 点击历史地址 选中
+	$right.on('click', '.popup-middle', function () {
+		chosenId2 = $(this).data('id').split('line')[1]
+		$(this).find('.chosenOne').show()
+		$(this).siblings().find('.chosenOne').hide()
+	})
+
+	var saveSign = false
 	// 历史/常用路线弹出框底部确定按钮
 	$popupConfirm.on('click', function () {
-		console.log(historyAddress)
-		if (chosenId) {
-			historyAddress.forEach(x => {
-				if (x.id === +chosenId) {
+		if (sign === '常用路线') {
+			if (chosenId) {
+				historyAddress.forEach(x => {
+					if (x.id === +chosenId) {
+						console.log(x)
+						areaData[0].province = x.province
+						areaData[0].city = x.city
+						areaData[0].area = x.area
+						areaData[0].pc = x.pc
+						areaData[0].cc = x.cc
+						areaData[0].ac = x.ac
+						areaData[0].address = x.address
+						areaData[0].name = x.name
+						areaData[0].mobile = x.phone
+						areaData[0].idNo = x.idNo
+					}
+				})
+
+				saveSign = false
+
+				// 赋值给详细地址input
+				$detailText.val(areaData[0].address)
+
+				// 修改所在省市区文字
+				changeAreaText()
+			}
+		} else {
+			if (chosenId2) {
+				hisAddr.forEach(x => {
 					console.log(x)
-					areaData.province = x.province
-					areaData.city = x.city
-					areaData.area = x.area
-					areaData.pc = x.pc
-					areaData.cc = x.cc
-					areaData.ac = x.ac
-					areaData.address = x.address
-					areaData.name = x.name
-					areaData.mobile = x.phone
-					areaData.idNo = x.idNo
-				}
-			})
+					if (x.id === +chosenId2) {
+						console.log(x)
+						areaData[0].province = x.stProvince
+						areaData[0].city = x.stCity
+						areaData[0].area = x.stArea
+						areaData[0].pc = x.stProvinceCode
+						areaData[0].cc = x.stCityCode
+						areaData[0].ac = x.stAreaCode
+						areaData[0].address = x.stAddress
 
-			// 赋值给详细地址input
-			$detailText.val(areaData.address)
+						// 从信息维护接口获取的发货人信息
+						areaData[0].name = deliveryInfo.name
+						areaData[0].mobile = deliveryInfo.mobile
+						areaData[0].idNo = deliveryInfo.idNo
 
-			// 修改所在省市区文字
-			changeAreaText()
+						areaData[1].province = x.destProvince
+						areaData[1].city = x.destCity
+						areaData[1].area = x.destArea
+						areaData[1].pc = x.destProvinceCode
+						areaData[1].cc = x.destCityCode
+						areaData[1].ac = x.destAreaCode
+						areaData[1].address = x.destAddress
+
+						// 从信息维护接口获取的收货人信息
+						areaData[1].name = deliveryInfo.name2
+						areaData[1].mobile = deliveryInfo.mobile2
+						areaData[1].idNo = deliveryInfo.idNo2
+					}
+				})
+
+				saveSign = false
+
+				// 赋值给详细地址input
+				$detailText.val(areaData[0].address)
+
+				// 修改所在省市区文字
+				changeAreaText()
+			}
 		}
+
 		// 底部按钮颜色
 		confirmBtnColor()
 
@@ -251,22 +397,24 @@ $(function () {
 			console.log(selectItems)
 
 			// 给areaData中赋值
-			areaData.province = selectItems[0].text
-			areaData.city = selectItems[1].text
-			areaData.area = selectItems[2].text
-			areaData.pc = selectItems[0].value
-			areaData.cc = selectItems[1].value
-			areaData.ac = selectItems[2].value
+			areaData[0].province = selectItems[0].text
+			areaData[0].city = selectItems[1].text
+			areaData[0].area = selectItems[2].text
+			areaData[0].pc = selectItems[0].value
+			areaData[0].cc = selectItems[1].value
+			areaData[0].ac = selectItems[2].value
 			console.log(areaData)
 
 			// 清空详细地址
 			$detailText.val('')
-			areaData.address = ''
+			areaData[0].address = ''
+
+      saveSign = false
 
 			// 从信息维护接口获取的发货人信息
-			areaData.name = deliveryInfo.name
-			areaData.mobile = deliveryInfo.mobile
-			areaData.idNo = deliveryInfo.idNo
+			areaData[0].name = deliveryInfo.name
+			areaData[0].mobile = deliveryInfo.mobile
+			areaData[0].idNo = deliveryInfo.idNo
 
 			// 修改所在省市区文字
 			changeAreaText()
@@ -277,24 +425,25 @@ $(function () {
 
 	// 详细信息input值赋值给areaData.address
 	$detailText.on('input', function () {
-		areaData.address = $(this).val()
+		areaData[0].address = $(this).val()
+    saveSign = true
 		confirmBtnColor()
 	})
 
 	// 修改所在省市区文字
 	function changeAreaText() {
-		if (areaData.province === areaData.city) {
-			$areaText[0].innerText = areaData.province
-		} else if (areaData.city === areaData.area) {
-			$areaText[0].innerText = areaData.province + areaData.city
+		if (areaData[0].province === areaData[0].city) {
+			$areaText[0].innerText = areaData[0].province
+		} else if (areaData[0].city === areaData[0].area) {
+			$areaText[0].innerText = areaData[0].province + areaData[0].city
 		} else {
-			$areaText[0].innerText = areaData.province + areaData.city + areaData.area
+			$areaText[0].innerText = areaData[0].province + areaData[0].city + areaData[0].area
 		}
 	}
 
 	// 判断提交按钮颜色
 	function confirmBtnColor() {
-		if (areaData.address && areaData.province) {
+		if (areaData[0].address && areaData[0].province) {
 			$confirmBtn.removeClass('bottomGray').addClass('bottomBlue')
 		} else {
 			$confirmBtn.removeClass('bottomBlue').addClass('bottomGray')
@@ -302,18 +451,20 @@ $(function () {
 	}
 	confirmBtnColor()
 
-	var to = window.location.href.split('from=')[1]
-
 	// 页面底部按钮 点击提交
 	$confirmBtn.on('click', function () {
 		if ($confirmBtn.css('background-color') === 'rgb(158, 158, 158)') {
 			return
 		}
 
-		sessionStorage.setItem('start', JSON.stringify(areaData))
+		sessionStorage.setItem('saveSign', saveSign)
+		sessionStorage.setItem('start', JSON.stringify(areaData[0]))
+		if (sign === '历史地址') {
+			sessionStorage.setItem('end', JSON.stringify(areaData[1]))
+		}
 		console.log(areaData)
-    
-    // 返回并刷新
+
+		// 返回并刷新
 		sessionStorage.setItem('history', true)
 		window.history.back()
 	})

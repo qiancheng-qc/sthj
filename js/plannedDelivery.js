@@ -1,16 +1,16 @@
 $(function () {
-  $('.arrow').on('click', function() {
-    backToApp()
-  })
-  function backToApp() {
-    console.log('back to app')
-  }
-  $('.header-right').on('click', function() {
-    waitTakeGoods()
-  })
-  function waitTakeGoods() {
-    console.log('待提货')
-  }
+	$('.arrow').on('click', function () {
+		backToApp()
+	})
+	function backToApp() {
+		console.log('back to app')
+	}
+	$('.header-right').on('click', function () {
+		waitTakeGoods()
+	})
+	function waitTakeGoods() {
+		console.log('待提货')
+	}
 	var $loadingAddress = $('.loading_address')
 	var $unloadGoods = $('.unload_goods')
 	var $goodsInfo = $('.goods_info')
@@ -31,17 +31,17 @@ $(function () {
 	var token
 	// token = window.location.href.split('token=')[1]
 	token =
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
+		'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
 	console.log(token)
 	sessionStorage.setItem('token', token)
 
-  // 返回并刷新
-  window.onpageshow = function () {
+	// 返回并刷新
+	window.onpageshow = function () {
 		var historyStorage = sessionStorage.getItem('history')
-    if (historyStorage === 'true') {
-      sessionStorage.setItem('history', false)
-      window.location.reload()
-    }
+		if (historyStorage === 'true') {
+			sessionStorage.setItem('history', false)
+			window.location.reload()
+		}
 	}
 
 	// 页面跳转
@@ -149,12 +149,22 @@ $(function () {
 	checkGoodsInfo()
 	submitBtnColor()
 
+	var saveSign = sessionStorage.getItem('saveSign')
+	console.log(saveSign)
+
 	$submitBtn.on('click', function () {
 		// 如果按钮灰色 直接return
 		if ($submitBtn.css('background-color') === 'rgb(158, 158, 158)') {
 			return
 		}
 
+		if (saveSign === 'true') {
+			mui.confirm('是否保存地址', '提示', ['取消', '确认'], saveAddress, 'div')
+		} else {
+			delivery()
+		}
+	})
+	function delivery() {
 		var data = JSON.stringify(submitData)
 		console.log(data)
 		$.ajax({
@@ -166,8 +176,38 @@ $(function () {
 			},
 			success: function (res) {
 				console.log(res)
-        backToApp()
+				backToApp()
 			}
 		})
-	})
+	}
+	function saveAddress(e) {
+		if (e.index === 1) {
+			$.ajax({
+				url: 'http://t.company.sthjnet.com/company/line/historyAddrAdd',
+				type: 'POST',
+				data: submitData.start,
+				headers: {
+					token
+				},
+				success: function (res) {
+					delivery()
+					console.log(res)
+				}
+			})
+			$.ajax({
+				url: 'http://t.company.sthjnet.com/company/line/historyAddrAdd',
+				type: 'POST',
+				data: submitData.end,
+				headers: {
+					token
+				},
+				success: function (res) {
+					delivery()
+					console.log(res)
+				}
+			})
+		} else {
+			delivery()
+		}
+	}
 })
