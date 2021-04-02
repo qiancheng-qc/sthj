@@ -7,6 +7,8 @@
 		<title>关于我们</title>
 		<link rel="stylesheet" href="../../css/base.css" />
 		<link rel="stylesheet" href="../../css/header.css" />
+    <script src="../../jq/jquery-1.12.4.min.js"></script>
+    <script src="../../js/connectToApp.js"></script>
 		<style>
 			.content {
 				width: calc(100% - 32px);
@@ -48,20 +50,4 @@
 			<div class="contentBottom">（官网：http://www.ahshentong.com；电话：0552-3239999 400-0552-333）</div>
 		</div>
 	</body>
-	<script>
-		var type = window.location.href.split('type=')[1].split('&')[0]
-		var arrow = document.querySelector('.arrow')
-		arrow.onclick = backToApp
-		console.log(type)
-
-		// var token = window.android.getToken()
-		function backToApp() {
-			console.log('back to app')
-			if (type === 'android') {
-				window.android.backToApp()
-			} else if (type === 'ios') {
-				console.log('ios')
-			}
-		}
-	</script>
 </html>

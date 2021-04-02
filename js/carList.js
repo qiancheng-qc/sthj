@@ -1,11 +1,4 @@
 $(function () {
-	$('.arrow').on('click', function () {
-		backToApp()
-	})
-	function backToApp() {
-		console.log('back to app')
-	}
-
 	var $drivers = $('.drivers')
 	var $searchInput = $('.search-box input') // 搜索框
 	var $searchBtn = $('.search-box button') // 搜索按钮

@@ -1,16 +1,4 @@
 $(function () {
-	$('.arrow').on('click', function () {
-		backToApp()
-	})
-	function backToApp() {
-		console.log('back to app')
-	}
-	$('.header-right').on('click', function () {
-		waitTakeGoods()
-	})
-	function waitTakeGoods() {
-		console.log('待提货')
-	}
 	var $loadingAddress = $('.loading_address')
 	var $unloadGoods = $('.unload_goods')
 	var $goodsInfo = $('.goods_info')

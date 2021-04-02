@@ -1,3 +1,4 @@
+// ajax请求方法
 $.prototype.http = function (url, data, fn, type = 'POST') {
 	$.ajax({
 		url: 'http://t.company.sthjnet.com/' + url,
