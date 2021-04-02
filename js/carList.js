@@ -21,11 +21,6 @@ $(function () {
 	var driversData = [] // 后台数据
 	var submitData = [] // 提交的内容 数组
 
-	var token
-	// token = sessionStorage.getItem('token')
-	token =
-		'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
-
 	// 创建司机信息 class="driver-info"
 	function createDriverInfo(id, name, phone, carNum, statusClass, statusName) {
 		return `<div class="driver-info" data-id="${id}">
@@ -76,56 +71,21 @@ $(function () {
 
 	// 获取数据
 	function queryData() {
-		// $.ajax({
-		// 	url: 'http://t.company.sthjnet.com/company/drive/driverFree',
-		// 	type: 'POST',
-		// 	headers: {
-		// 		token
-		// 	},
-		// 	data,
-		// 	success: function (res) {
-		// 		console.log(res)
-		// 		res.result.content.forEach(x => {
-		// 			driversData.push({
-		// 				id: x.drive.id,
-		// 				name: x.drive.driver.name,
-		// 				phone: x.drive.driver.mobile,
-		// 				carNum: x.drive.truck.code,
-		// 				statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
-		// 				statusName: x.cnt > 0 ? '已指派' : '空闲中'
-		// 				// statusClass: 'notBusy',
-		// 				// statusName: '空闲中'
-		// 			})
-		// 		})
-		// 		console.log(driversData)
-		// 		renderDrivers(driversData)
-		// 		driversData = []
-		// 	}
-		// })
-		$.ajax({
-			url: 'http://t.company.sthjnet.com/company/drive/list',
-			type: 'POST',
-			headers: {
-				token
-			},
-			data,
-			success: function (res) {
-				console.log(res.result.content)
-				res.result.content.forEach(x => {
-					driversData.push({
-						id: x.id,
-						name: x.driver.name,
-						phone: x.driver.mobile,
-						carNum: x.truck.code,
-						// statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
-						// statusName: x.cnt > 0 ? '已指派' : '空闲中'
-						statusClass: 'notBusy',
-						statusName: '空闲中'
-					})
+		$.prototype.http('company/drive/list', data, function (res) {
+			res.result.content.forEach(x => {
+				driversData.push({
+					id: x.id,
+					name: x.driver.name,
+					phone: x.driver.mobile,
+					carNum: x.truck.code,
+					// statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
+					// statusName: x.cnt > 0 ? '已指派' : '空闲中'
+					statusClass: 'notBusy',
+					statusName: '空闲中'
 				})
-				renderDrivers(driversData)
-				driversData = []
-			}
+			})
+			renderDrivers(driversData)
+			driversData = []
 		})
 	}
 	queryData()

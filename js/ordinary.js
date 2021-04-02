@@ -1,6 +1,6 @@
 $(function () {
-	var from = window.location.href.split('from=')[1].split('&')[0]
-	console.log(from)
+	// var from = window.location.href.split('from=')[1].split('&')[0]
+	// console.log(from)
 	$('.arrow').on('click', function () {
 		if (from === 'carlist') {
 			window.history.back()
@@ -36,12 +36,6 @@ $(function () {
 		transportWay: 1,
 		tstc: '1'
 	}
-	var token
-	// token = window.location.href.split('token=')[1]
-	token =
-		'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoxNjE2NTc1NDU1LCJjb21wYW55SWQiOjE3LCJjdXN0b21lcklkIjoxNiwibW9iaWxlIjoiMTU2OTg1NjkzMjUiLCJleHAiOjE2MTY1NzcyNTV9.RpcmSNP4RXMXthwT67zTsCcGdhA5jvZ_XFRYcxHvzIM'
-	console.log(token)
-	sessionStorage.setItem('token', token)
 
 	// 返回并刷新
 	window.onpageshow = function () {
@@ -68,16 +62,9 @@ $(function () {
 
 	// 获取用户信息 （税率）
 	function queryRate() {
-		$.ajax({
-			url: 'http://t.company.sthjnet.com/company/user/info',
-			type: 'POST',
-			headers: {
-				token
-			},
-			success: function (res) {
-				rate = res.result.company.rate
-				$rate[0].innerText = rate
-			}
+		$.prototype.http('company/user/info', '', function (res) {
+			rate = res.result.company.rate
+			$rate[0].innerText = rate
 		})
 	}
 	queryRate()
@@ -184,44 +171,20 @@ $(function () {
 	function delivery() {
 		var data = JSON.stringify(submitData)
 		console.log(data)
-		$.ajax({
-			url: 'http://t.company.sthjnet.com/company/order/delivery',
-			type: 'POST',
-			data: { body: data },
-			headers: {
-				token
-			},
-			success: function (res) {
-				console.log(res)
-				backToApp()
-			}
+		$.prototype.http('company/order/delivery', { body: data }, function (res) {
+			console.log(res)
+			backToApp()
 		})
 	}
 	function saveAddress(e) {
 		if (e.index === 1) {
-			$.ajax({
-				url: 'http://t.company.sthjnet.com/company/line/historyAddrAdd',
-				type: 'POST',
-				data: submitData.start,
-				headers: {
-					token
-				},
-				success: function (res) {
-					delivery()
-					console.log(res)
-				}
+			$.prototype.http('company/line/historyAddrAdd', submitData.start, function (res) {
+				delivery()
+				console.log(res)
 			})
-			$.ajax({
-				url: 'http://t.company.sthjnet.com/company/line/historyAddrAdd',
-				type: 'POST',
-				data: submitData.end,
-				headers: {
-					token
-				},
-				success: function (res) {
-					delivery()
-					console.log(res)
-				}
+			$.prototype.http('company/line/historyAddrAdd', submitData.end, function (res) {
+				delivery()
+				console.log(res)
 			})
 		} else {
 			delivery()
