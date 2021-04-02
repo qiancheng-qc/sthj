@@ -62,12 +62,12 @@ $(function () {
 		':' +
 		(time.getSeconds() + '').padStart(2, 0)
 
-	var $left = $('#left') // 常用路线容器
-	var $right = $('#right') // 历史地址容器
-	var historyAddress = [] // 获取的常用路线
-	var hisAddr = [] // 获取的历史地址
-	var chosenId // 常用路线选中的id
-	var chosenId2 // 历史地址选中的id
+	var $left = $('#left') // 历史地址容器
+	var $right = $('#right') // 常用路线容器
+	var historyAddress = [] // 获取的历史地址
+	var hisAddr = [] // 获取的常用路线
+	var chosenId // 历史地址选中的id
+	var chosenId2 // 常用路线选中的id
 
 	// 获取信息维护信息 （发货人 收货人 name,mobile,idNo）
 	function queryInfo() {
@@ -83,7 +83,7 @@ $(function () {
 		})
 	}
 
-	// 获取常用路线
+	// 获取历史地址
 	function queryHistoryAddr() {
 		$.prototype.http(
 			'company/line/historyAddr',
@@ -101,7 +101,7 @@ $(function () {
 		)
 	}
 
-	// 获取历史地址
+	// 获取常用路线
 	function getList() {
 		$.prototype.http(
 			'company/line/getList',
@@ -120,7 +120,7 @@ $(function () {
 		)
 	}
 
-	// 创建常用路线
+	// 创建历史地址
 	function createAddrInfo(id, location, detail) {
 		return `<div class="popup-middle" data-id="location${id}">
               <image class="image" src="../images/ordinary/地址.png" mode=""></image>
@@ -132,7 +132,7 @@ $(function () {
             </div>`
 	}
 
-	// 将创建的常用路线渲染到页面
+	// 将创建的历史地址渲染到页面
 	function renderAddrs(arr) {
 		arr.forEach(x => {
 			var location = ''
@@ -148,7 +148,7 @@ $(function () {
 		})
 	}
 
-	// 创建历史地址
+	// 创建常用路线
 	function createAddrInfo2(id, location, detail, location2, detail2) {
 		return `<div class="popup-middle" data-id="line${id}">
               <image class="image" src="../images/ordinary/地址.png" mode=""></image>
@@ -165,7 +165,7 @@ $(function () {
             </div>`
 	}
 
-	// 将创建的历史地址渲染到页面
+	// 将创建的常用路线渲染到页面
 	function renderAddrs2(arr) {
 		arr.forEach(x => {
 			var location = ''
@@ -190,8 +190,8 @@ $(function () {
 	}
 
 	queryInfo() // 获取发货人 name,mobile,idNo
-	queryHistoryAddr() // 获取常用路线
-	getList() // 获取历史地址
+	queryHistoryAddr() // 获取历史地址
+	getList() // 获取常用路线
 
 	var $contentRoad = $('.contentRoad') // 历史/常用路线 按钮
 	var $popup = $('#popup') // 历史/常用路线弹出框弹出
@@ -222,7 +222,7 @@ $(function () {
 	})
 
 	// 历史/常用切换
-	var sign = '常用路线'
+	var sign = '历史地址'
 	var $popupTop = $('.popup-top')
 	var $lr = $('.lr')
 	$popupTop.children().click(function () {
@@ -231,14 +231,14 @@ $(function () {
 		$lr.children().eq($(this).index()).show().siblings().hide()
 	})
 
-	// 点击常用路线 选中
+	// 点击历史地址 选中
 	$left.on('click', '.popup-middle', function () {
 		chosenId = $(this).data('id').split('location')[1]
 		$(this).find('.chosenOne').show()
 		$(this).siblings().find('.chosenOne').hide()
 	})
 
-	// 点击历史地址 选中
+	// 点击常用路线 选中
 	$right.on('click', '.popup-middle', function () {
 		chosenId2 = $(this).data('id').split('line')[1]
 		$(this).find('.chosenOne').show()
@@ -248,7 +248,7 @@ $(function () {
 	var saveSign = false
 	// 历史/常用路线弹出框底部确定按钮
 	$popupConfirm.on('click', function () {
-		if (sign === '常用路线') {
+		if (sign === '历史地址') {
 			if (chosenId) {
 				historyAddress.forEach(x => {
 					if (x.id === +chosenId) {
@@ -452,7 +452,7 @@ $(function () {
 
 		sessionStorage.setItem('saveSign', saveSign)
 		sessionStorage.setItem('start', JSON.stringify(areaData[0]))
-		if (sign === '历史地址') {
+		if (sign === '常用路线') {
 			sessionStorage.setItem('end', JSON.stringify(areaData[1]))
 		}
 		console.log(areaData)
