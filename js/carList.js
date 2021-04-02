@@ -1,4 +1,11 @@
 $(function () {
+	$('.arrow').on('click', function () {
+		backToApp()
+	})
+	function backToApp() {
+		console.log('back to app')
+	}
+
 	var $drivers = $('.drivers')
 	var $searchInput = $('.search-box input') // 搜索框
 	var $searchBtn = $('.search-box button') // 搜索按钮
@@ -13,7 +20,7 @@ $(function () {
 	}
 	var driversData = [] // 后台数据
 	var submitData = [] // 提交的内容 数组
-  
+
 	// 创建司机信息 class="driver-info"
 	function createDriverInfo(id, name, phone, carNum, statusClass, statusName) {
 		return `<div class="driver-info" data-id="${id}">
@@ -64,21 +71,19 @@ $(function () {
 
 	// 获取数据
 	function queryData() {
-		$.prototype.http('company/drive/driverFree', data, function (res) {
-			console.log(res)
+		$.prototype.http('company/drive/list', data, function (res) {
 			res.result.content.forEach(x => {
 				driversData.push({
-					id: x.drive.id,
-					name: x.drive.driver.name,
-					phone: x.drive.driver.mobile,
-					carNum: x.drive.truck.code,
-					statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
-					statusName: x.cnt > 0 ? '已指派' : '空闲中'
-					// statusClass: 'notBusy',
-					// statusName: '空闲中'
+					id: x.id,
+					name: x.driver.name,
+					phone: x.driver.mobile,
+					carNum: x.truck.code,
+					// statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
+					// statusName: x.cnt > 0 ? '已指派' : '空闲中'
+					statusClass: 'notBusy',
+					statusName: '空闲中'
 				})
 			})
-			console.log(driversData)
 			renderDrivers(driversData)
 			driversData = []
 		})
@@ -169,8 +174,6 @@ $(function () {
 		console.log(submitData)
 		sessionStorage.setItem('driver', JSON.stringify(submitData))
 
-		// 返回并刷新
-		sessionStorage.setItem('history', true)
-		window.history.back()
+		window.location.href = '../ordinary.html?type=ios&from=carlist'
 	})
 })

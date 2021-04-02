@@ -51,9 +51,6 @@ $(function () {
 	var time = new Date()
 	areaData[0].time = areaData[1].time = time.getFullYear() + '-' + (time.getMonth() + 1 + '').padStart(2, 0) + '-' + time.getDate()
 
-	var token
-	token = sessionStorage.getItem('token')
-
 	var $left = $('#left') // 常用路线容器
 	var $right = $('#right') // 历史地址容器
 	var historyAddress = [] // 获取的常用路线
@@ -63,60 +60,45 @@ $(function () {
 
 	// 获取信息维护信息 （发货人 收货人 name,mobile,idNo）
 	function queryInfo() {
-		$.ajax({
-			url: 'http://t.company.sthjnet.com/company/company/info',
-			type: 'POST',
-			headers: {
-				token
-			},
-			success: function (res) {
-				console.log(res.result)
-				deliveryInfo.name = res.result.startName
-				deliveryInfo.mobile = res.result.startMobile
-				deliveryInfo.idNo = res.result.startIdNo
+    $.prototype.http('company/company/info', '', function (res) {
+			console.log(res.result)
+			deliveryInfo.name = res.result.startName
+			deliveryInfo.mobile = res.result.startMobile
+			deliveryInfo.idNo = res.result.startIdNo
 
-				deliveryInfo.name2 = res.result.endName
-				deliveryInfo.mobile2 = res.result.endMobile
-				deliveryInfo.idNo2 = res.result.endIdNo
-			}
+			deliveryInfo.name2 = res.result.endName
+			deliveryInfo.mobile2 = res.result.endMobile
+			deliveryInfo.idNo2 = res.result.endIdNo
 		})
 	}
 
 	// 获取常用路线
 	function queryHistoryAddr() {
-		$.ajax({
-			url: 'http://t.company.sthjnet.com/company/line/historyAddr',
-			type: 'POST',
-			headers: {
-				token
-			},
-			data: {
+    $.prototype.http(
+			'company/line/historyAddr',
+			{
 				curPage: 1,
 				pageSize: 1000000
 			},
-			success: function (res) {
+			function (res) {
 				if (res.result.content.length > 0) {
 					$left.find('.empty').hide()
 					historyAddress = res.result.content
 					renderAddrs(historyAddress)
 				}
 			}
-		})
+		)
 	}
 
 	// 获取历史地址
 	function getList() {
-		$.ajax({
-			url: 'http://t.company.sthjnet.com/company/line/getList',
-			type: 'POST',
-			headers: {
-				token
-			},
-			data: {
+    $.prototype.http(
+			'company/line/getList',
+			{
 				curPage: 1,
 				pageSize: 1000000
 			},
-			success: function (res) {
+			function (res) {
 				console.log(res.result.content)
 				if (res.result.content.length > 0) {
 					$right.find('.empty').hide()
@@ -124,7 +106,7 @@ $(function () {
 					renderAddrs2(hisAddr)
 				}
 			}
-		})
+		)
 	}
 
 	// 创建常用路线
