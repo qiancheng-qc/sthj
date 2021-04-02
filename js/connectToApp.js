@@ -25,6 +25,8 @@ $(function () {
 		}, 0)
 	}
 
+  $.prototype.setupWebViewJavascriptBridge = setupWebViewJavascriptBridge
+
 	setupWebViewJavascriptBridge(function (bridge) {
 		$('.arrow').on('click', function () {
 			bridge.callHandler('backToApp', function (response) {
@@ -50,8 +52,8 @@ $(function () {
 		}
 	})
 	function backToApp() {
-		console.log('back to app')
-		if (type === 'android') {
+    if (type === 'android') {
+      console.log('back to app')
 			window.android.backToApp()
 		}
 	}
