@@ -49,7 +49,18 @@ $(function () {
 
 	// 获取时间
 	var time = new Date()
-	areaData[0].time = areaData[1].time = time.getFullYear() + '-' + (time.getMonth() + 1 + '').padStart(2, 0) + '-' + time.getDate()
+	areaData[0].time = areaData[1].time =
+		time.getFullYear() +
+		'-' +
+		(time.getMonth() + 1 + '').padStart(2, 0) +
+		'-' +
+		(time.getDate() + '').padStart(2, 0) +
+		' ' +
+		(time.getHours() + '').padStart(2, 0) +
+		':' +
+		(time.getMinutes() + '').padStart(2, 0) +
+		':' +
+		(time.getSeconds() + '').padStart(2, 0)
 
 	var $left = $('#left') // 常用路线容器
 	var $right = $('#right') // 历史地址容器
@@ -60,7 +71,7 @@ $(function () {
 
 	// 获取信息维护信息 （发货人 收货人 name,mobile,idNo）
 	function queryInfo() {
-    $.prototype.http('company/company/info', '', function (res) {
+		$.prototype.http('company/company/info', '', function (res) {
 			console.log(res.result)
 			deliveryInfo.name = res.result.startName
 			deliveryInfo.mobile = res.result.startMobile
@@ -74,7 +85,7 @@ $(function () {
 
 	// 获取常用路线
 	function queryHistoryAddr() {
-    $.prototype.http(
+		$.prototype.http(
 			'company/line/historyAddr',
 			{
 				curPage: 1,
@@ -92,7 +103,7 @@ $(function () {
 
 	// 获取历史地址
 	function getList() {
-    $.prototype.http(
+		$.prototype.http(
 			'company/line/getList',
 			{
 				curPage: 1,

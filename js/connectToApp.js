@@ -15,6 +15,7 @@ $(function () {
 			console.log('ios')
 		}
 	}
+  $.prototype.backToApp = backToApp
 	$('.header-right').on('click', function () {
 		waitTakeGoods()
 	})

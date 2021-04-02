@@ -155,7 +155,7 @@ $(function () {
 		console.log(data)
 		$.prototype.http('company/order/delivery', { body: data }, function (res) {
 			console.log(res)
-			backToApp()
+			$.prototype.backToApp()
 		})
 	}
 	function saveAddress(e) {
