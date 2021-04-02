@@ -13,16 +13,17 @@ $(function () {
 	}
 	var driversData = [] // 后台数据
 	var submitData = [] // 提交的内容 数组
+	var driversName = [] // 选中司机的名字 数组
 
 	// 创建司机信息 class="driver-info"
-	function createDriverInfo(id, name, phone, carNum, statusClass, statusName) {
+	function createDriverInfo(id, name, phone, carNum, statusClass, statusName, authentication) {
 		return `<div class="driver-info" data-id="${id}">
               <div class="radio">
                 <input class="driver-input" type="checkbox" name="driver" id="input${id}" />
                 <label class="mui-icon driver-label" for="input${id}"></label>
               </div>
               <div class="name-phone">
-                <div class="name">${name}</div>
+                <div class="name">${name}&nbsp;&nbsp;<span style="color: #5c5c5c; font-size: 12px; width: 45px; text-align: center; background-color: #FFDD3A; line-height: 18px; border-radius: 2px; display: inline-block">${authentication}</span></div>
                 <div class="phone">${phone}&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0A41CD;">${carNum}</span></div>
               </div>
               <div class="driver-status">
@@ -34,7 +35,7 @@ $(function () {
 	// 将创建的司机信息渲染到页面
 	function renderDrivers(arr) {
 		arr.forEach(x => {
-			var infoDiv = createDriverInfo(x.id, x.name, x.phone, x.carNum, x.statusClass, x.statusName)
+			var infoDiv = createDriverInfo(x.id, x.name, x.phone, x.carNum, x.statusClass, x.statusName, x.authentication)
 			$drivers.append(infoDiv)
 		})
 	}
@@ -64,19 +65,20 @@ $(function () {
 
 	// 获取数据
 	function queryData() {
-		$.prototype.http('company/drive/list', data, function (res) {
+		$.prototype.http('company/drive/driverFree', data, function (res) {
+			console.log(res)
 			res.result.content.forEach(x => {
 				driversData.push({
-					id: x.id,
-					name: x.driver.name,
-					phone: x.driver.mobile,
-					carNum: x.truck.code,
-					// statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
-					// statusName: x.cnt > 0 ? '已指派' : '空闲中'
-					statusClass: 'notBusy',
-					statusName: '空闲中'
+					id: x.drive.id,
+					name: x.drive.driver.name,
+					phone: x.drive.driver.mobile,
+					carNum: x.drive.truck.code,
+					statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
+					statusName: x.cnt > 0 ? '已指派' : '空闲中',
+					authentication: x.drive.state === 1 ? '未认证' : ''
 				})
 			})
+			console.log(driversData)
 			renderDrivers(driversData)
 			driversData = []
 		})
@@ -109,24 +111,13 @@ $(function () {
 		}
 	}
 
-	// driversData = [
-	// 	{ id: 1, name: '张三', phone: 13311111111, carNum: '皖A12345', statusClass: 'notBusy', statusName: '空闲中' },
-	// 	{ id: 2, name: '李四', phone: 13322222222, carNum: '皖A12345', statusClass: 'notBusy', statusName: '空闲中' },
-	// 	{ id: 3, name: '王五', phone: 13333333333, carNum: '皖A12345', statusClass: 'notBusy', statusName: '空闲中' },
-	// 	{ id: 4, name: '赵六', phone: 13344444444, carNum: '皖A12345', statusClass: 'notBusy', statusName: '空闲中' },
-	// 	{ id: 5, name: '周七', phone: 13355555555, carNum: '皖A12345', statusClass: 'notBusy', statusName: '空闲中' },
-	// 	{ id: 6, name: '周八', phone: 13366666666, carNum: '皖A12345', statusClass: 'busy', statusName: '已指派' },
-	// 	{ id: 7, name: '周九', phone: 13377777777, carNum: '皖A12345', statusClass: 'busy', statusName: '已指派' },
-	// 	{ id: 8, name: '周十', phone: 13388888888, carNum: '皖A12345', statusClass: 'busy', statusName: '已指派' }
-	// ]
-	// renderDrivers(driversData)
-
 	$searchBtn.on('click', function () {
 		data.curPage = 1
 		searchDriverBy($searchInput.val())
 		$searchInput.val('')
 		$drivers.empty()
 		submitData = []
+		driversName = []
 		count = 0
 		$count[0].innerText = count
 		confirmBtnColor()
@@ -140,14 +131,22 @@ $(function () {
 			$(this).find('.driver-input')[0].checked = !$(this).find('.driver-input')[0].checked
 			if ($(this).find('.driver-input')[0].checked) {
 				count++
-				console.log($(this).data('id'))
 				submitData.push($(this).data('id'))
+				var i2 = $.inArray($(this).find('.name')[0].innerText, driversName)
+				driversName.push($(this).find('.name')[0].innerText)
+				if (i2 !== -1) {
+					count--
+					driversName.splice(i2, 1)
+					mui.toast('该司机已被选中')
+					$(this).find('.driver-input')[0].checked = false
+				}
+				console.log(driversName)
 			} else {
 				count--
-				console.log($(this).data('id'))
 				var i = $.inArray($(this).data('id'), submitData)
 				submitData.splice(i, 1)
-				console.log($.inArray($(this).data('id'), submitData))
+				var i2 = $.inArray($(this).find('.name')[0].innerText, driversName)
+				driversName.splice(i2, 1)
 			}
 		} else {
 			$(this).find('.driver-input')[0].disabled = true
