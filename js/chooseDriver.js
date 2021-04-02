@@ -13,7 +13,8 @@ $(function () {
 	}
 	var driversData = [] // 后台数据
 	var submitData = [] // 提交的内容 数组
-  
+	var driversName = [] // 选中司机的名字 数组
+
 	// 创建司机信息 class="driver-info"
 	function createDriverInfo(id, name, phone, carNum, statusClass, statusName) {
 		return `<div class="driver-info" data-id="${id}">
@@ -111,18 +112,6 @@ $(function () {
 		}
 	}
 
-	// driversData = [
-	// 	{ id: 1, name: '张三', phone: 13311111111, carNum: '皖A12345', statusClass: 'notBusy', statusName: '空闲中' },
-	// 	{ id: 2, name: '李四', phone: 13322222222, carNum: '皖A12345', statusClass: 'notBusy', statusName: '空闲中' },
-	// 	{ id: 3, name: '王五', phone: 13333333333, carNum: '皖A12345', statusClass: 'notBusy', statusName: '空闲中' },
-	// 	{ id: 4, name: '赵六', phone: 13344444444, carNum: '皖A12345', statusClass: 'notBusy', statusName: '空闲中' },
-	// 	{ id: 5, name: '周七', phone: 13355555555, carNum: '皖A12345', statusClass: 'notBusy', statusName: '空闲中' },
-	// 	{ id: 6, name: '周八', phone: 13366666666, carNum: '皖A12345', statusClass: 'busy', statusName: '已指派' },
-	// 	{ id: 7, name: '周九', phone: 13377777777, carNum: '皖A12345', statusClass: 'busy', statusName: '已指派' },
-	// 	{ id: 8, name: '周十', phone: 13388888888, carNum: '皖A12345', statusClass: 'busy', statusName: '已指派' }
-	// ]
-	// renderDrivers(driversData)
-
 	$searchBtn.on('click', function () {
 		data.curPage = 1
 		searchDriverBy($searchInput.val())
@@ -142,14 +131,22 @@ $(function () {
 			$(this).find('.driver-input')[0].checked = !$(this).find('.driver-input')[0].checked
 			if ($(this).find('.driver-input')[0].checked) {
 				count++
-				console.log($(this).data('id'))
 				submitData.push($(this).data('id'))
+				var i2 = $.inArray($(this).find('.name')[0].innerText, driversName)
+				driversName.push($(this).find('.name')[0].innerText)
+				if (i2 !== -1) {
+					count--
+					driversName.splice(i2, 1)
+					mui.toast('该司机已被选中')
+					$(this).find('.driver-input')[0].checked = false
+				}
+				console.log(driversName)
 			} else {
 				count--
-				console.log($(this).data('id'))
 				var i = $.inArray($(this).data('id'), submitData)
 				submitData.splice(i, 1)
-				console.log($.inArray($(this).data('id'), submitData))
+				var i2 = $.inArray($(this).find('.name')[0].innerText, driversName)
+				driversName.splice(i2, 1)
 			}
 		} else {
 			$(this).find('.driver-input')[0].disabled = true
