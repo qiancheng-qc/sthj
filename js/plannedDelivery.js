@@ -143,7 +143,7 @@ $(function () {
 		console.log(data)
     $.prototype.http('company/order/planDelivery', { body: data }, function (res) {
 			console.log(res)
-			backToApp()
+			$.prototype.backToApp()
 		})
 	}
 	function saveAddress(e) {

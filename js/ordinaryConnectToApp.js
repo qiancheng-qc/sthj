@@ -1,23 +1,29 @@
-// // app交互代码
+// // app交互代码 普通发货页面专属
 // $(function () {
 // 	var type = window.location.href.split('type=')[1].split('&')[0]
+// 	var from = window.location.href.split('from=')[1].split('&')[0]
 // 	console.log(type)
+// 	console.log(from)
 
-//   // 退出
+// 	// 退出
 // 	$('.arrow').on('click', function () {
 // 		backToApp()
 // 	})
 // 	function backToApp() {
 // 		console.log('back to app')
-// 		if (type === 'android') {
-// 			window.android.backToApp()
-// 		} else if (type === 'ios') {
-// 			console.log('ios')
+// 		if (from === 'carlist') {
+// 			window.history.back()
+// 		} else {
+// 			if (type === 'android') {
+// 				window.android.backToApp()
+// 			} else if (type === 'ios') {
+// 				console.log('ios')
+// 			}
 // 		}
 // 	}
-//   $.prototype.backToApp = backToApp
+// 	$.prototype.backToApp = backToApp
 
-//   // 跳转待提货页面
+// 	// 跳转待提货页面
 // 	$('.header-right').on('click', function () {
 // 		waitTakeGoods()
 // 	})

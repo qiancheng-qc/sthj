@@ -142,6 +142,8 @@ $(function () {
 			$(this).find('.driver-input')[0].checked = !$(this).find('.driver-input')[0].checked
 			if ($(this).find('.driver-input')[0].checked) {
 				count++
+				console.log($(this).find('.name')[0].innerText)
+				console.log(submitData)
 				console.log($(this).data('id'))
 				submitData.push($(this).data('id'))
 			} else {
