@@ -157,6 +157,8 @@ $(function () {
 		confirmBtnColor()
 	})
 
+	var type = window.location.href.split('type=')[1].split('&')[0]
+
 	$confirmBtn.on('click', function () {
 		// 如果按钮灰色 直接return
 		if ($confirmBtn.css('background-color') === 'rgb(158, 158, 158)') {
@@ -166,6 +168,6 @@ $(function () {
 		console.log(submitData)
 		sessionStorage.setItem('driver', JSON.stringify(submitData))
 
-		window.location.href = '../ordinary.html?type=ios&from=carlist'
+		window.location.href = '../ordinary.html?type=' + type + '&from=carlist'
 	})
 })

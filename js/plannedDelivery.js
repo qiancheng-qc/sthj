@@ -141,23 +141,25 @@ $(function () {
 	function delivery() {
 		var data = JSON.stringify(submitData)
 		console.log(data)
-    $.prototype.http('company/order/planDelivery', { body: data }, function (res) {
+		$.prototype.http('company/order/planDelivery', { body: data }, function (res) {
 			console.log(res)
+			$.prototype.setupWebViewJavascriptBridge(function (bridge) {
+				bridge.callHandler('backToApp', function (response) {
+					alert(response)
+				})
+			})
 			$.prototype.backToApp()
 		})
 	}
 	function saveAddress(e) {
 		if (e.index === 1) {
 			$.prototype.http('company/line/historyAddrAdd', submitData.start, function (res) {
-				delivery()
 				console.log(res)
 			})
 			$.prototype.http('company/line/historyAddrAdd', submitData.end, function (res) {
-				delivery()
 				console.log(res)
 			})
-		} else {
-			delivery()
 		}
+		delivery()
 	}
 })
