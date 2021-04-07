@@ -29,21 +29,21 @@ $(function () {
 			document.documentElement.removeChild(WVJBIframe)
 		}, 0)
 	}
-	$.prototype.setupWebViewJavascriptBridge = setupWebViewJavascriptBridge
+	// $.prototype.setupWebViewJavascriptBridge = setupWebViewJavascriptBridge
 
-	// 点击事件
-	setupWebViewJavascriptBridge(function (bridge) {
-		$('.arrow').on('click', function () {
-			bridge.callHandler('backToApp', function (response) {
-				alert(response)
-			})
-		})
-		$('.header-right').on('click', function () {
-			bridge.callHandler('waitTakeGoods', function (response) {
-				alert(response)
-			})
-		})
-	})
+	// // 点击事件
+	// setupWebViewJavascriptBridge(function (bridge) {
+	// 	$('.arrow').on('click', function () {
+	// 		bridge.callHandler('backToApp', function (response) {
+	// 			alert(response)
+	// 		})
+	// 	})
+	// 	$('.header-right').on('click', function () {
+	// 		bridge.callHandler('waitTakeGoods', function (response) {
+	// 			alert(response)
+	// 		})
+	// 	})
+	// })
 
 	// 退出
 	$('.arrow').on('click', function () {
@@ -57,6 +57,12 @@ $(function () {
 		if (type === 'android') {
 			console.log('back to app')
 			window.android.backToApp()
+		} else {
+			setupWebViewJavascriptBridge(function (bridge) {
+				bridge.callHandler('backToApp', function (response) {
+					alert(response)
+				})
+			})
 		}
 	}
 	$.prototype.backToApp = backToApp
@@ -68,6 +74,13 @@ $(function () {
 	function waitTakeGoods() {
 		if (type === 'android') {
 			console.log('待提货')
+      window.android.waitTakeGoods()
+		} else {
+			setupWebViewJavascriptBridge(function (bridge) {
+				bridge.callHandler('waitTakeGoods', function (response) {
+					alert(response)
+				})
+			})
 		}
 	}
 })

@@ -155,11 +155,11 @@ $(function () {
 		console.log(data)
 		$.prototype.http('company/order/delivery', { body: data }, function (res) {
 			console.log(res)
-			$.prototype.setupWebViewJavascriptBridge(function (bridge) {
-				bridge.callHandler('backToApp', function (response) {
-					alert(response)
-				})
-			})
+			// $.prototype.setupWebViewJavascriptBridge(function (bridge) {
+			// 	bridge.callHandler('backToApp', function (response) {
+			// 		alert(response)
+			// 	})
+			// })
 			$.prototype.backToApp()
 		})
 	}
