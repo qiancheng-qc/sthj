@@ -123,7 +123,7 @@ $(function () {
 	// 创建历史地址
 	function createAddrInfo(id, location, detail) {
 		return `<div class="popup-middle" data-id="location${id}">
-              <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+              <image class="image" src="../images/ordinary/location.png" mode=""></image>
               <div class="middle-content">
                 <div class="middle-text">${location}</div>
                 <div class="middle-item">${detail}</div>
@@ -151,7 +151,7 @@ $(function () {
 	// 创建常用路线
 	function createAddrInfo2(id, location, detail, location2, detail2) {
 		return `<div class="popup-middle" data-id="line${id}">
-              <image class="image" src="../images/ordinary/地址.png" mode=""></image>
+              <image class="image" src="../images/ordinary/location.png" mode=""></image>
               <div class="middle-content2">
                 <div class="middle-text">${location}</div>
                 <div class="middle-item">${detail}</div>
