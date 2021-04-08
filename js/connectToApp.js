@@ -5,12 +5,10 @@ $(function () {
 	var ifCarList = window.location.href.indexOf('from=')
 	if (ifCarList !== -1) {
 		var from = window.location.href.split('from=')[1].split('&')[0]
-		console.log(from)
 	}
 
 	// 判断是ios还是android
 	var type = window.location.href.split('type=')[1].split('&')[0]
-	console.log(type)
 
 	// 对接ios webViewJavascriptBridge 必备代码
 	function setupWebViewJavascriptBridge(callback) {
@@ -29,21 +27,6 @@ $(function () {
 			document.documentElement.removeChild(WVJBIframe)
 		}, 0)
 	}
-	// $.prototype.setupWebViewJavascriptBridge = setupWebViewJavascriptBridge
-
-	// // 点击事件
-	// setupWebViewJavascriptBridge(function (bridge) {
-	// 	$('.arrow').on('click', function () {
-	// 		bridge.callHandler('backToApp', function (response) {
-	// 			alert(response)
-	// 		})
-	// 	})
-	// 	$('.header-right').on('click', function () {
-	// 		bridge.callHandler('waitTakeGoods', function (response) {
-	// 			alert(response)
-	// 		})
-	// 	})
-	// })
 
 	// 退出
 	$('.arrow').on('click', function () {
@@ -55,7 +38,6 @@ $(function () {
 	})
 	function backToApp() {
 		if (type === 'android') {
-			console.log('back to app')
 			window.android.backToApp()
 		} else {
 			setupWebViewJavascriptBridge(function (bridge) {
@@ -66,21 +48,4 @@ $(function () {
 		}
 	}
 	$.prototype.backToApp = backToApp
-
-	// 跳转待提货页面
-	$('.header-right').on('click', function () {
-		waitTakeGoods()
-	})
-	function waitTakeGoods() {
-		if (type === 'android') {
-			console.log('待提货')
-			window.android.waitTakeGoods()
-		} else {
-			setupWebViewJavascriptBridge(function (bridge) {
-				bridge.callHandler('waitTakeGoods', function (response) {
-					alert(response)
-				})
-			})
-		}
-	}
 })

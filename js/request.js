@@ -22,7 +22,6 @@ if (!token) {
 	setupWebViewJavascriptBridge(function (bridge) {
 		bridge.registerHandler('sendtoken', function (data) {
 			token = data.token
-			// alert(token)
 			sessionStorage.setItem('token', token)
 		})
 	})
