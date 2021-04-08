@@ -11,6 +11,7 @@ $(function () {
 		name: '',
 		totalPrice: 0
 	}
+	var categoryName = '煤炭及制品'
 	// 税率
 	var rate = 0
 
@@ -32,6 +33,7 @@ $(function () {
 	$goodsTags.on('click', function () {
 		$(this).removeClass('not-pick').addClass('pick').siblings().removeClass('pick').addClass('not-pick')
 		data.category = $(this).data('id')
+		categoryName = $(this)[0].innerText
 	})
 
 	var $drop = $('.drop') // 发货数量单位下拉箭头
@@ -173,6 +175,10 @@ $(function () {
 		// 如果按钮灰色 直接return
 		if ($submitBtn.css('background-color') === 'rgb(158, 158, 158)') {
 			return
+		}
+    
+		if (!data.name) {
+			data.name = categoryName
 		}
 
 		sessionStorage.setItem('goodsInfo', JSON.stringify(data))

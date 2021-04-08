@@ -44,6 +44,8 @@ $.prototype.http = function (url, data, fn, type = 'POST') {
 		complete: function (res) {
 			if (res.responseJSON.code === 200) {
 				fn(res.responseJSON)
+			} else if (res.responseJSON.message) {
+				mui.toast(res.responseJSON.message)
 			} else {
 				mui.toast('请求失败，请重试')
 			}
