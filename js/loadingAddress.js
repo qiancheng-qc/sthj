@@ -72,7 +72,6 @@ $(function () {
 	// 获取信息维护信息 （发货人 收货人 name,mobile,idNo）
 	function queryInfo() {
 		$.prototype.http('company/company/info', '', function (res) {
-			console.log(res.result)
 			deliveryInfo.name = res.result.startName
 			deliveryInfo.mobile = res.result.startMobile
 			deliveryInfo.idNo = res.result.startIdNo
@@ -110,7 +109,6 @@ $(function () {
 				pageSize: 1000000
 			},
 			function (res) {
-				console.log(res.result.content)
 				if (res.result.content.length > 0) {
 					$right.find('.empty').hide()
 					hisAddr = res.result.content
@@ -252,7 +250,6 @@ $(function () {
 			if (chosenId) {
 				historyAddress.forEach(x => {
 					if (x.id === +chosenId) {
-						console.log(x)
 						areaData[0].province = x.province
 						areaData[0].city = x.city
 						areaData[0].area = x.area
@@ -277,9 +274,7 @@ $(function () {
 		} else {
 			if (chosenId2) {
 				hisAddr.forEach(x => {
-					console.log(x)
 					if (x.id === +chosenId2) {
-						console.log(x)
 						areaData[0].province = x.stProvince
 						areaData[0].city = x.stCity
 						areaData[0].area = x.stArea
@@ -387,7 +382,6 @@ $(function () {
 	})
 	function areaShow() {
 		picker.show(function (selectItems) {
-			console.log(selectItems)
 
 			// 给areaData中赋值
 			areaData[0].province = selectItems[0].text
@@ -396,7 +390,6 @@ $(function () {
 			areaData[0].pc = selectItems[0].value
 			areaData[0].cc = selectItems[1].value
 			areaData[0].ac = selectItems[2].value
-			console.log(areaData)
 
 			// 清空详细地址
 			$detailText.val('')
@@ -455,7 +448,6 @@ $(function () {
 		if (sign === '常用路线') {
 			sessionStorage.setItem('end', JSON.stringify(areaData[1]))
 		}
-		console.log(areaData)
 
 		// 返回并刷新
 		sessionStorage.setItem('history', true)

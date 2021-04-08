@@ -16,9 +16,9 @@ $(function () {
 
 	// 获取用户信息 （税率）
 	function queryRate() {
-    $.prototype.http('company/user/info', '', function (res) {
-      rate = res.result.company.rate / 100
-    })
+		$.prototype.http('company/user/info', '', function (res) {
+			rate = res.result.company.rate / 100
+		})
 	}
 	queryRate()
 
@@ -107,7 +107,6 @@ $(function () {
 
 	// 发货数量1
 	$item1.find('input').on('input', function () {
-		console.log($(this).val())
 		data.amount = $(this).val()
 		if (data.unit === 1) {
 			data.ton = $(this).val()
@@ -119,14 +118,12 @@ $(function () {
 
 	// 发货数量2
 	$item2.find('input').on('input', function () {
-		console.log($(this).val())
 		data.volume = $(this).val()
 		subBtnColor()
 	})
 
 	// 发货数量3
 	$item3.find('input').on('input', function () {
-		console.log($(this).val())
 		data.ton = $(this).val()
 		subBtnColor()
 	})
@@ -155,13 +152,13 @@ $(function () {
 	// 提交按钮颜色
 	function subBtnColor() {
 		if ($item3.css('display') === 'none') {
-			if (data.name && data.price && data.amount && data.ton) {
+			if (data.price && data.amount && data.ton) {
 				$submitBtn.removeClass('gray').addClass('blue')
 			} else {
 				$submitBtn.removeClass('blue').addClass('gray')
 			}
 		} else {
-			if (data.name && data.price && data.amount && data.ton && data.volume) {
+			if (data.price && data.amount && data.ton && data.volume) {
 				$submitBtn.removeClass('gray').addClass('blue')
 			} else {
 				$submitBtn.removeClass('blue').addClass('gray')
@@ -178,7 +175,6 @@ $(function () {
 			return
 		}
 
-		console.log(data)
 		sessionStorage.setItem('goodsInfo', JSON.stringify(data))
 
 		// 返回并刷新

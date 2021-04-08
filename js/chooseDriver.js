@@ -20,7 +20,7 @@ $(function () {
 		return `<div class="driver-info" data-id="${id}">
               <div class="radio">
                 <input class="driver-input" type="checkbox" name="driver" id="input${id}" />
-                <label class="mui-icon driver-label" for="input${id}"></label>
+                <div class="label"><span class="mui-icon mui-icon-checkmarkempty"></span></div>
               </div>
               <div class="name-phone">
                 <div class="name">${name}</div>
@@ -66,7 +66,6 @@ $(function () {
 	// 获取数据
 	function queryData() {
 		$.prototype.http('company/drive/driverFree', data, function (res) {
-			console.log(res)
 			res.result.content.forEach(x => {
 				driversData.push({
 					id: x.drive.id,
@@ -79,7 +78,6 @@ $(function () {
 					// statusName: '空闲中'
 				})
 			})
-			console.log(driversData)
 			renderDrivers(driversData)
 			driversData = []
 		})
@@ -88,6 +86,7 @@ $(function () {
 
 	// 页面滚动加载
 	var timer
+  throttle()
 	window.onscroll = function () {
 		throttle()
 	}
@@ -100,9 +99,6 @@ $(function () {
 				var viewportHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || 0
 				//隐藏的高度
 				var scrollHeight = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-				// console.log(pageHeight)
-				// console.log(viewportHeight)
-				// console.log(scrollHeight)
 				if (pageHeight - viewportHeight - scrollHeight < 20) {
 					//如果满足触发条件，执行
 					data.curPage++
@@ -127,26 +123,25 @@ $(function () {
 	$drivers.on('click', '.driver-info', function () {
 		// 司机空闲中点击可添加
 		var statusClassName = $(this).find('.driver-status').children().attr('class')
+    var i = $.inArray($(this).data('id'), submitData)
+    var i2 = $.inArray($(this).find('.name')[0].innerText, driversName)
 		if (statusClassName === 'notBusy') {
-			$(this).find('.driver-input')[0].checked = !$(this).find('.driver-input')[0].checked
 			if ($(this).find('.driver-input')[0].checked) {
-				count++
-				submitData.push($(this).data('id'))
-				var i2 = $.inArray($(this).find('.name')[0].innerText, driversName)
-				driversName.push($(this).find('.name')[0].innerText)
-				if (i2 !== -1) {
-					count--
-					driversName.splice(i2, 1)
-					mui.toast('该司机已被选中')
-					$(this).find('.driver-input')[0].checked = false
-				}
-				console.log(driversName)
-			} else {
+				$(this).find('.driver-input')[0].checked = false
+				$(this).find('.mui-icon').hide()
 				count--
-				var i = $.inArray($(this).data('id'), submitData)
 				submitData.splice(i, 1)
-				var i2 = $.inArray($(this).find('.name')[0].innerText, driversName)
 				driversName.splice(i2, 1)
+			} else {
+				if (i2 === -1) {
+					$(this).find('.driver-input')[0].checked = true
+					$(this).find('.mui-icon').show()
+					count++
+					submitData.push($(this).data('id'))
+					driversName.push($(this).find('.name')[0].innerText)
+				} else {
+					mui.toast('该司机已被选中')
+				}
 			}
 		} else {
 			$(this).find('.driver-input')[0].disabled = true
@@ -163,7 +158,6 @@ $(function () {
 			return
 		}
 
-		console.log(submitData)
 		sessionStorage.setItem('driver', JSON.stringify(submitData))
 
 		// 返回并刷新

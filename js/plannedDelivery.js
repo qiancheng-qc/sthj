@@ -49,7 +49,6 @@ $(function () {
 	// 从sessionStorage获取数据并处理
 	function checkLoadingAddress() {
 		loadingAddressStorage = JSON.parse(sessionStorage.getItem('start'))
-		console.log(loadingAddressStorage)
 
 		if (loadingAddressStorage) {
 			submitData.start = loadingAddressStorage
@@ -65,7 +64,6 @@ $(function () {
 	}
 	function checkUnloadGoods() {
 		unloadGoodsStorage = JSON.parse(sessionStorage.getItem('end'))
-		console.log(unloadGoodsStorage)
 
 		if (unloadGoodsStorage) {
 			submitData.end = unloadGoodsStorage
@@ -124,7 +122,6 @@ $(function () {
 	submitBtnColor()
 
 	var saveSign = sessionStorage.getItem('saveSign')
-	console.log(saveSign)
 
 	$submitBtn.on('click', function () {
 		// 如果按钮灰色 直接return
@@ -140,24 +137,15 @@ $(function () {
 	})
 	function delivery() {
 		var data = JSON.stringify(submitData)
-		console.log(data)
 		$.prototype.http('company/order/planDelivery', { body: data }, function (res) {
-			console.log(res)
-			// $.prototype.setupWebViewJavascriptBridge(function (bridge) {
-			// 	bridge.callHandler('backToApp', function (response) {
-			// 		alert(response)
-			// 	})
-			// })
 			$.prototype.backToApp()
 		})
 	}
 	function saveAddress(e) {
 		if (e.index === 1) {
-			$.prototype.http('company/line/historyAddrAdd', submitData.start, function (res) {
-				console.log(res)
+			$.prototype.http('company/line/historyAddrAdd', submitData.start, function () {
 			})
-			$.prototype.http('company/line/historyAddrAdd', submitData.end, function (res) {
-				console.log(res)
+			$.prototype.http('company/line/historyAddrAdd', submitData.end, function () {
 			})
 		}
 		delivery()
