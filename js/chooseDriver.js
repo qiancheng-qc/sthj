@@ -15,12 +15,28 @@ $(function () {
 	var submitData = [] // 提交的内容 数组
 	var driversName = [] // 选中司机的名字 数组
 
+	var driverStorage
+	var driverNameStorage
+	function fromStorage() {
+		driverStorage = JSON.parse(sessionStorage.getItem('driver'))
+		driverNameStorage = JSON.parse(sessionStorage.getItem('driverName'))
+		if (driverStorage) {
+			count = driverStorage.length
+			$count[0].innerText = count
+			submitData = driverStorage
+			driversName = driverNameStorage
+		}
+	}
+	fromStorage()
+
 	// 创建司机信息 class="driver-info"
 	function createDriverInfo(id, name, phone, carNum, statusClass, statusName) {
 		return `<div class="driver-info" data-id="${id}">
               <div class="radio">
                 <input class="driver-input" type="checkbox" name="driver" id="input${id}" />
-                <div class="label"><span class="mui-icon mui-icon-checkmarkempty"></span></div>
+                <div class="${statusClass === 'busy' ? 'label label_gray' : 'label'}">
+                  <span class="mui-icon mui-icon-checkmarkempty"></span>
+                </div>
               </div>
               <div class="name-phone">
                 <div class="name">${name}</div>
@@ -38,6 +54,20 @@ $(function () {
 			var infoDiv = createDriverInfo(x.id, x.name, x.phone, x.carNum, x.statusClass, x.statusName)
 			$drivers.append(infoDiv)
 		})
+    $drivers.append('<p class="loading" style="text-align: center;">加载中...</p>')
+		var i = 0
+		for (let key in $('.driver-info')) {
+			i++
+			if (i <= $('.driver-info').length) {
+				var dataId = +$('.driver-info')[key].dataset.id
+				var index = $.inArray(dataId, driverStorage)
+				if (index !== -1 && dataId === driverStorage[index]) {
+					$($('.driver-info')[key]).find('.driver-input')[0].checked = true
+					$($('.driver-info')[key]).find('.mui-icon').show()
+				}
+			}
+		}
+		confirmBtnColor()
 	}
 
 	// 搜索
@@ -52,6 +82,7 @@ $(function () {
 			data.driverName = val
 		}
 		queryData()
+		throttle()
 	}
 
 	// 确定按钮颜色
@@ -67,16 +98,17 @@ $(function () {
 	function queryData() {
 		$.prototype.http('company/drive/driverFree', data, function (res) {
 			res.result.content.forEach(x => {
-				driversData.push({
-					id: x.drive.id,
-					name: x.drive.driver.name,
-					phone: x.drive.driver.mobile,
-					carNum: x.drive.truck.code,
-					statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
-					statusName: x.cnt > 0 ? '已指派' : '空闲中'
-					// statusClass: 'notBusy',
-					// statusName: '空闲中'
-				})
+				$('.loading').hide()
+				if (x.drive.driver) {
+					driversData.push({
+						id: x.drive.id,
+						name: x.drive.driver.name,
+						phone: x.drive.driver.mobile,
+						carNum: x.drive.truck.code,
+						statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
+						statusName: x.cnt > 0 ? '已指派' : '空闲中'
+					})
+				}
 			})
 			renderDrivers(driversData)
 			driversData = []
@@ -86,7 +118,7 @@ $(function () {
 
 	// 页面滚动加载
 	var timer
-  throttle()
+	throttle()
 	window.onscroll = function () {
 		throttle()
 	}
@@ -111,11 +143,8 @@ $(function () {
 	$searchBtn.on('click', function () {
 		data.curPage = 1
 		searchDriverBy($searchInput.val())
-		$searchInput.val('')
 		$drivers.empty()
-		submitData = []
-		count = 0
-		$count[0].innerText = count
+		$searchInput.val('')
 		confirmBtnColor()
 	})
 
@@ -123,8 +152,8 @@ $(function () {
 	$drivers.on('click', '.driver-info', function () {
 		// 司机空闲中点击可添加
 		var statusClassName = $(this).find('.driver-status').children().attr('class')
-    var i = $.inArray($(this).data('id'), submitData)
-    var i2 = $.inArray($(this).find('.name')[0].innerText, driversName)
+		var i = $.inArray($(this).data('id'), submitData)
+		var i2 = $.inArray($(this).find('.name')[0].innerText, driversName)
 		if (statusClassName === 'notBusy') {
 			if ($(this).find('.driver-input')[0].checked) {
 				$(this).find('.driver-input')[0].checked = false
@@ -159,6 +188,7 @@ $(function () {
 		}
 
 		sessionStorage.setItem('driver', JSON.stringify(submitData))
+		sessionStorage.setItem('driverName', JSON.stringify(driversName))
 
 		// 返回并刷新
 		sessionStorage.setItem('history', true)

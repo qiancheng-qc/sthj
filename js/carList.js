@@ -38,6 +38,8 @@ $(function () {
 			var infoDiv = createDriverInfo(x.id, x.name, x.phone, x.carNum, x.statusClass, x.statusName, x.authentication)
 			$drivers.append(infoDiv)
 		})
+		$drivers.append('<p class="loading" style="text-align: center;">加载中...</p>')
+		confirmBtnColor()
 	}
 
 	// 搜索
@@ -52,6 +54,7 @@ $(function () {
 			data.driverName = val
 		}
 		queryData()
+		throttle()
 	}
 
 	// 确定按钮颜色
@@ -67,15 +70,18 @@ $(function () {
 	function queryData() {
 		$.prototype.http('company/drive/driverFree', data, function (res) {
 			res.result.content.forEach(x => {
-				driversData.push({
-					id: x.drive.id,
-					name: x.drive.driver.name,
-					phone: x.drive.driver.mobile,
-					carNum: x.drive.truck.code,
-					statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
-					statusName: x.cnt > 0 ? '已指派' : '空闲中',
-					authentication: x.drive.state === 1 ? '未认证' : ''
-				})
+				$('.loading').hide()
+				if (x.drive.driver) {
+					driversData.push({
+						id: x.drive.id,
+						name: x.drive.driver.name,
+						phone: x.drive.driver.mobile,
+						carNum: x.drive.truck.code,
+						statusClass: x.cnt > 0 ? 'busy' : 'notBusy',
+						statusName: x.cnt > 0 ? '已指派' : '空闲中',
+						authentication: x.drive.state === 1 ? '未认证' : ''
+					})
+				}
 			})
 			renderDrivers(driversData)
 			driversData = []
@@ -85,7 +91,7 @@ $(function () {
 
 	// 页面滚动加载
 	var timer
-  throttle()
+	throttle()
 	window.onscroll = function () {
 		throttle()
 	}
@@ -110,12 +116,8 @@ $(function () {
 	$searchBtn.on('click', function () {
 		data.curPage = 1
 		searchDriverBy($searchInput.val())
-		$searchInput.val('')
 		$drivers.empty()
-		submitData = []
-		driversName = []
-		count = 0
-		$count[0].innerText = count
+		$searchInput.val('')
 		confirmBtnColor()
 	})
 
@@ -138,7 +140,7 @@ $(function () {
 					$(this).find('.mui-icon').show()
 					count++
 					submitData.push($(this).data('id'))
-					driversName.push($(this).find('.name')[0].innerText)
+					driversName.push($(this).find('.name')[0].innerText.split('未认证')[0].trim())
 				} else {
 					mui.toast('该司机已被选中')
 				}
@@ -161,6 +163,7 @@ $(function () {
 		}
 
 		sessionStorage.setItem('driver', JSON.stringify(submitData))
+		sessionStorage.setItem('driverName', JSON.stringify(driversName))
 
 		window.location.href = '../ordinary.html?type=' + type + '&from=carlist'
 	})

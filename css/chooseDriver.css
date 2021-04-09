@@ -82,6 +82,10 @@ input {
 	border: 1px solid #5c5c5c;
 	border-radius: 3px;
 }
+.label_gray {
+  border: 1px solid #ccc;
+  background-color: #eee;
+}
 .label span {
   display: none;
 	width: 18px;
