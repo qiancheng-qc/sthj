@@ -149,7 +149,10 @@ $(function () {
 	function delivery() {
 		var data = JSON.stringify(submitData)
 		$.prototype.http('company/order/delivery', { body: data }, function (res) {
-			$.prototype.backToApp()
+			mui.toast('发货成功')
+			setTimeout(() => {
+				$.prototype.backToApp()
+			}, 1000)
 		})
 	}
 	function saveAddress(e) {
