@@ -1,5 +1,4 @@
 body {
-	background-color: #f6f6f6;
 	position: relative;
 }
 input {
@@ -7,10 +6,15 @@ input {
 }
 .content {
 	width: 100%;
+	padding-top: 8px;
+	background-color: #f6f6f6;
 }
 .content > div {
 	margin-top: 8px;
 	background-color: #fff;
+}
+.content .goods-count {
+	margin-top: 0;
 }
 .goods-count .items {
 	display: flex;
@@ -66,7 +70,7 @@ input {
 	flex: 1;
 	border: none;
 	height: 20px;
-  padding: 0;
+	padding: 0;
 	margin: 0 15px 0;
 	font-size: 16px;
 	font-family: PingFang SC;

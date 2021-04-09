@@ -7,8 +7,15 @@ html,
 body {
 	/* width: 100%; */
 	height: 100%;
-	background-color: #f6f6f6;
+	/* background-color: #f6f6f6; */
 	position: relative;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  background-color: #f6f6f6;
+  padding-top: 8px;
 }
 
 /* .header {
@@ -43,7 +50,7 @@ body {
 
 .contentList {
 	height: 97px;
-	margin-top: 8px;
+	/* margin-top: 8px; */
 	background-color: #ffffff;
 }
 
